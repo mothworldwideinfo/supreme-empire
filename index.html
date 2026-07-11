@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#ff2d95">
+  <meta name="theme-color" content="#22d3ee">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="MOTH EMPIRE">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="manifest" href="./manifest.json">
   <link rel="apple-touch-icon" href="./DJ2fR.jpg">
-  <title>MOTH EMPIRE // Character Creator | Made Out The Hood</title>
+  <title>MOTH EMPIRE // Cosmic Character Creator</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -17,12 +17,12 @@
         extend: {
           colors: {
             moth: {
-              pink: '#ff2d95',
-              hot: '#ff006e',
-              black: '#0a0a0a',
-              dark: '#111111',
-              chrome: '#e0e0e0',
-              neon: '#00f5ff'
+              pink: '#22d3ee',
+              hot: '#8b5cf6',
+              black: '#020617',
+              dark: '#060b1d',
+              chrome: '#e2e8f0',
+              neon: '#f0abfc'
             }
           },
           fontFamily: {
@@ -30,8 +30,8 @@
             body: ['Inter', 'system-ui', 'sans-serif']
           },
           boxShadow: {
-            'neon-pink': '0 0 20px rgba(255, 45, 149, 0.6), 0 0 40px rgba(255, 45, 149, 0.3)',
-            'neon-sm': '0 0 10px rgba(255, 45, 149, 0.5)'
+            'neon-pink': '0 0 20px rgba(34, 211, 238, 0.45), 0 0 40px rgba(139, 92, 246, 0.25)',
+            'neon-sm': '0 0 10px rgba(34, 211, 238, 0.35)'
           }
         }
       }
@@ -39,14 +39,50 @@
   </script>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    /* Grain overlay for raw street aesthetic */
+    :root {
+      --space-accent: #22d3ee;
+      --space-accent-2: #8b5cf6;
+      --space-glow: rgba(34, 211, 238, 0.35);
+    }
+
+    /* Cosmic grain overlay */
     body::before {
       content: '';
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+      background-image: radial-gradient(circle at top left, rgba(34, 211, 238, 0.16), transparent 30%), radial-gradient(circle at bottom right, rgba(139, 92, 246, 0.16), transparent 35%), url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
       pointer-events: none;
       z-index: 50;
+    }
+    
+    body {
+      background-image: radial-gradient(circle at top, rgba(34, 211, 238, 0.12), transparent 22%), linear-gradient(180deg, #030712 0%, #060b1d 40%, #02030b 100%);
+      background-attachment: fixed;
+    }
+
+    .text-moth-pink {
+      color: var(--space-accent) !important;
+    }
+    .border-moth-pink, .border-moth-pink\/40 {
+      border-color: rgba(34, 211, 238, 0.45) !important;
+    }
+    .bg-moth-pink {
+      background-color: var(--space-accent-2) !important;
+    }
+    .from-moth-pink {
+      --tw-gradient-from: var(--space-accent-2) !important;
+    }
+    .to-moth-hot {
+      --tw-gradient-to: var(--space-accent) !important;
+    }
+    .bg-moth-dark {
+      background-color: rgba(2, 6, 23, 0.9) !important;
+    }
+    .shadow-neon-pink {
+      box-shadow: 0 0 20px rgba(34, 211, 238, 0.4), 0 0 40px rgba(139, 92, 246, 0.24) !important;
+    }
+    .shadow-neon-sm {
+      box-shadow: 0 0 12px rgba(34, 211, 238, 0.3), 0 0 20px rgba(139, 92, 246, 0.18) !important;
     }
     
     .stat-bar {
@@ -54,15 +90,15 @@
     }
     
     .preview-glow {
-      box-shadow: 0 0 60px rgba(255, 45, 149, 0.25), inset 0 0 40px rgba(255, 45, 149, 0.05);
+      box-shadow: 0 0 60px rgba(34, 211, 238, 0.25), inset 0 0 40px rgba(34, 211, 238, 0.05);
     }
     
     .option-card {
       transition: all 0.2s ease;
     }
     .option-card:hover, .option-card.active {
-      border-color: #ff2d95;
-      box-shadow: 0 0 15px rgba(255, 45, 149, 0.4);
+      border-color: #22d3ee;
+      box-shadow: 0 0 15px rgba(34, 211, 238, 0.4), 0 0 30px rgba(139, 92, 246, 0.25);
       transform: translateY(-2px);
     }
     
@@ -72,19 +108,19 @@
       width: 22px;
       height: 22px;
       border-radius: 50%;
-      background: #ff2d95;
+      background: linear-gradient(135deg, #22d3ee, #8b5cf6);
       cursor: pointer;
-      box-shadow: 0 0 10px #ff2d95;
+      box-shadow: 0 0 10px rgba(34, 211, 238, 0.55);
     }
     
     .slider::-moz-range-thumb {
       width: 22px;
       height: 22px;
       border-radius: 50%;
-      background: #ff2d95;
+      background: linear-gradient(135deg, #22d3ee, #8b5cf6);
       cursor: pointer;
       border: none;
-      box-shadow: 0 0 10px #ff2d95;
+      box-shadow: 0 0 10px rgba(34, 211, 238, 0.55);
     }
     
     /* Animated moth particle */
@@ -98,59 +134,71 @@
     
     /* Distressed text */
     .distressed {
-      text-shadow: 2px 2px 0 #ff2d95, -1px -1px 0 #00f5ff;
+      text-shadow: 2px 2px 0 #22d3ee, -1px -1px 0 #8b5cf6;
     }
     
     /* Scrollbar */
     ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #0a0a0a; }
-    ::-webkit-scrollbar-thumb { background: #ff2d95; border-radius: 3px; }
+    ::-webkit-scrollbar-track { background: #020617; }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #22d3ee, #8b5cf6); border-radius: 3px; }
   </style>
 </head>
 <body class="bg-moth-black text-white font-body min-h-screen overflow-x-hidden">
+  <div id="appSplash" class="fixed inset-0 z-[90] flex items-center justify-center bg-black/95 backdrop-blur-md px-4">
+    <div class="w-full max-w-md rounded-[2rem] border border-moth-pink/40 bg-gradient-to-b from-moth-dark to-black p-8 text-center shadow-neon-pink">
+      <div class="mx-auto mb-4 flex h-20 w-20 items-center justify-center overflow-hidden rounded-full border border-moth-pink/40 bg-black/70 shadow-neon-sm">
+        <img src="DJ2fR.jpg" alt="MOTH EMPIRE app icon" class="h-full w-full object-cover">
+      </div>
+      <div class="font-display text-[11px] uppercase tracking-[0.4em] text-moth-pink">MOTH EMPIRE</div>
+      <h2 class="mt-2 font-display text-3xl font-black tracking-wider text-white">GAME APP</h2>
+      <p class="mt-3 text-sm text-gray-300">Create your empire self, unlock packs, and step into the moth journey on the go.</p>
+      <button id="enterAppBtn" class="mt-6 rounded-full bg-gradient-to-r from-moth-pink to-moth-hot px-6 py-3 font-display text-sm font-black uppercase tracking-[0.3em] shadow-neon-pink transition hover:scale-[1.02]">ENTER APP</button>
+      <p class="mt-3 text-[11px] uppercase tracking-[0.3em] text-gray-500">Offline-ready • installable • mobile first</p>
+    </div>
+  </div>
   
   <!-- Top Bar -->
   <header class="fixed top-0 left-0 right-0 z-40 bg-black/80 backdrop-blur-md border-b border-moth-pink/30">
     <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <div class="w-12 h-12 rounded-full overflow-hidden border border-moth-pink/40 bg-black/70 shadow-neon-sm">
+        <div class="w-12 h-12 rounded-full overflow-hidden border border-cyan-400/40 bg-black/70 shadow-[0_0_18px_rgba(0,245,255,0.35)]">
           <img src="DJ2fR.jpg" alt="Butterfly moth logo" class="w-full h-full object-cover">
         </div>
         <div>
-          <h1 class="font-display font-bold text-lg tracking-wider text-moth-pink">MOTH EMPIRE</h1>
-          <p class="text-[10px] text-gray-400 tracking-[0.3em] uppercase">Made Out The Hood // Character Creator</p>
+          <h1 class="font-display font-bold text-lg tracking-wider text-cyan-300">MOTH EMPIRE</h1>
+          <p class="text-[10px] text-gray-400 tracking-[0.3em] uppercase">Cosmic // Character Creator</p>
         </div>
       </div>
       <div class="flex items-center gap-4">
-        <span class="text-xs text-gray-400 hidden sm:block">POINTS LEFT: <span id="pointsLeft" class="text-moth-pink font-bold text-base">12</span></span>
-        <button id="resetBtn" class="text-xs px-3 py-1.5 border border-gray-600 rounded hover:border-moth-pink hover:text-moth-pink transition">RESET</button>
+        <span class="text-xs text-gray-400 hidden sm:block">SHIP FUEL: <span id="pointsLeft" class="text-cyan-300 font-bold text-base">12</span></span>
+        <button id="resetBtn" class="text-xs px-3 py-1.5 border border-cyan-400/40 rounded hover:border-cyan-300 hover:text-cyan-300 transition">RESET</button>
       </div>
     </div>
   </header>
 
   <main class="pt-20 pb-12 max-w-7xl mx-auto px-4">
-    <div class="mb-4 flex flex-wrap gap-2 rounded-2xl border border-white/10 bg-black/60 p-2">
-      <button data-scroll="creatorSection" class="app-nav-btn rounded-full border border-white/15 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.25em] text-gray-300">Creator</button>
-      <button data-scroll="questSection" class="app-nav-btn rounded-full border border-white/15 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.25em] text-gray-300">Quests</button>
-      <button data-scroll="packSection" class="app-nav-btn rounded-full border border-white/15 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.25em] text-gray-300">Packs</button>
+    <div class="mb-4 flex flex-wrap gap-2 rounded-2xl border border-cyan-400/20 bg-black/60 p-2">
+      <button data-scroll="creatorSection" class="app-nav-btn rounded-full border border-cyan-400/20 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.25em] text-gray-300">Creator</button>
+      <button data-scroll="questSection" class="app-nav-btn rounded-full border border-cyan-400/20 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.25em] text-gray-300">Quests</button>
+      <button data-scroll="packSection" class="app-nav-btn rounded-full border border-cyan-400/20 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.25em] text-gray-300">Packs</button>
     </div>
 
     <div class="mb-6 grid gap-3 md:grid-cols-3">
-      <button data-scroll="creatorSection" class="rounded-2xl border border-moth-pink/30 bg-gradient-to-br from-moth-pink/10 to-transparent p-4 text-left">
-        <div class="font-display text-sm font-black uppercase tracking-[0.25em] text-moth-pink">Create</div>
-        <div class="mt-2 text-sm text-gray-300">Build your empire self and lock in your first identity.</div>
+      <button data-scroll="creatorSection" class="rounded-2xl border border-cyan-400/30 bg-gradient-to-br from-cyan-500/10 to-transparent p-4 text-left">
+        <div class="font-display text-sm font-black uppercase tracking-[0.25em] text-cyan-300">Create</div>
+        <div class="mt-2 text-sm text-gray-300">Pilot your empire self and chart a new route through the stars.</div>
       </button>
-      <button data-scroll="questSection" class="rounded-2xl border border-cyan-400/30 bg-gradient-to-br from-cyan-500/10 to-transparent p-4 text-left">
-        <div class="font-display text-sm font-black uppercase tracking-[0.25em] text-cyan-400">Quests</div>
-        <div class="mt-2 text-sm text-gray-300">Step into the daily grind, math runs, and hygiene streaks.</div>
+      <button data-scroll="questSection" class="rounded-2xl border border-fuchsia-400/30 bg-gradient-to-br from-fuchsia-500/10 to-transparent p-4 text-left">
+        <div class="font-display text-sm font-black uppercase tracking-[0.25em] text-fuchsia-300">Quests</div>
+        <div class="mt-2 text-sm text-gray-300">Launch into daily missions, math runs, and orbital hygiene streaks.</div>
       </button>
       <button data-scroll="packSection" class="rounded-2xl border border-white/15 bg-gradient-to-br from-white/10 to-transparent p-4 text-left">
         <div class="font-display text-sm font-black uppercase tracking-[0.25em] text-white">Packs</div>
-        <div class="mt-2 text-sm text-gray-300">Unlock full game play with subscription tiers and premium access.</div>
+        <div class="mt-2 text-sm text-gray-300">Unlock premium galaxy access with subscription tiers.</div>
       </button>
     </div>
 
-    <div id="packBanner" class="mb-6 rounded-2xl border border-moth-pink/40 bg-gradient-to-r from-moth-pink/10 to-cyan-500/10 p-4 text-sm">
+    <div id="packBanner" class="mb-6 rounded-2xl border border-cyan-400/40 bg-gradient-to-r from-cyan-500/10 to-fuchsia-500/10 p-4 text-sm">
       <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
         <div>
           <div class="font-display font-black uppercase tracking-[0.35em] text-moth-pink text-[10px]">SUBSCRIPTION PACKS</div>
@@ -182,14 +230,44 @@
         <div class="mt-2 text-sm text-gray-300">Unlocks the entire empire, first-access events, and all future content.</div>
       </button>
     </div>
+
+    <div class="mb-6 rounded-3xl border border-moth-pink/30 bg-gradient-to-br from-black via-moth-dark to-black p-4">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <div class="font-display text-[10px] uppercase tracking-[0.35em] text-cyan-300">EMPIRE PROGRESS</div>
+          <div class="mt-1 text-xl font-black text-white" id="empireMeterText">Empire Rise • 0 / 5 milestones</div>
+        </div>
+        <div class="rounded-full border border-cyan-400/40 bg-cyan-400/10 px-3 py-1 text-sm font-semibold text-cyan-300" id="streakBadge">Streak: 0 days</div>
+      </div>
+      <div class="mt-4 h-2.5 overflow-hidden rounded-full bg-gray-800">
+        <div id="empireMeter" class="h-full rounded-full bg-gradient-to-r from-cyan-400 to-fuchsia-500" style="width:0%"></div>
+      </div>
+      <div class="mt-4 grid gap-2 md:grid-cols-3" id="questBoard">
+        <div class="rounded-2xl border border-white/10 bg-black/50 p-3">
+          <div class="text-[10px] uppercase tracking-[0.3em] text-gray-400">Daily Quest</div>
+          <div class="mt-1 font-semibold text-white">Math Run</div>
+          <div class="mt-1 text-xs text-gray-400">Solve 3 problem sets to raise your mind stat.</div>
+        </div>
+        <div class="rounded-2xl border border-white/10 bg-black/50 p-3">
+          <div class="text-[10px] uppercase tracking-[0.3em] text-gray-400">Daily Quest</div>
+          <div class="mt-1 font-semibold text-white">Bitcoin Run</div>
+          <div class="mt-1 text-xs text-gray-400">Stack value with your money and network stats.</div>
+        </div>
+        <div class="rounded-2xl border border-white/10 bg-black/50 p-3">
+          <div class="text-[10px] uppercase tracking-[0.3em] text-gray-400">Daily Quest</div>
+          <div class="mt-1 font-semibold text-white">Hygiene Streak</div>
+          <div class="mt-1 text-xs text-gray-400">Stay sharp and keep your image meter glowing.</div>
+        </div>
+      </div>
+    </div>
     
     <!-- Title -->
     <div class="text-center mb-8 mt-4">
       <h2 class="font-display font-black text-3xl sm:text-5xl tracking-tighter distressed mb-2">
-        BUILD YOUR <span class="text-moth-pink">EMPIRE SELF</span>
+        BUILD YOUR <span class="text-cyan-300">COSMIC SELF</span>
       </h2>
       <p class="text-gray-400 text-sm max-w-xl mx-auto">
-        Start from the block. Allocate your grit. Choose your look. Become the moth that flies out the hood.
+        Launch from the block. Allocate your grit. Forge a new route through the stars and become the moth that outruns the galaxy.
       </p>
     </div>
 
@@ -199,11 +277,11 @@
       <div class="lg:col-span-7 space-y-6">
         
         <!-- Identity Section -->
-        <section id="creatorSection" class="bg-moth-dark border border-white/10 rounded-2xl p-5 relative overflow-hidden">
-          <div class="absolute top-0 right-0 w-32 h-32 bg-moth-pink/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+        <section id="creatorSection" class="bg-slate-950/80 border border-cyan-400/20 rounded-2xl p-5 relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
           
-          <h3 class="font-display font-bold text-moth-pink tracking-widest text-sm mb-4 flex items-center gap-2">
-            <span class="w-2 h-2 bg-moth-pink rounded-full animate-pulse"></span>
+          <h3 class="font-display font-bold text-cyan-300 tracking-widest text-sm mb-4 flex items-center gap-2">
+            <span class="w-2 h-2 bg-cyan-300 rounded-full animate-pulse"></span>
             01 // IDENTITY
           </h3>
           
@@ -289,9 +367,9 @@
         </section>
 
         <!-- Stats Section -->
-        <section id="packSection" class="bg-moth-dark border border-white/10 rounded-2xl p-5">
-          <h3 class="font-display font-bold text-moth-pink tracking-widest text-sm mb-2 flex items-center gap-2">
-            <span class="w-2 h-2 bg-moth-pink rounded-full animate-pulse"></span>
+        <section id="packSection" class="bg-slate-950/80 border border-cyan-400/20 rounded-2xl p-5">
+          <h3 class="font-display font-bold text-cyan-300 tracking-widest text-sm mb-2 flex items-center gap-2">
+            <span class="w-2 h-2 bg-cyan-300 rounded-full animate-pulse"></span>
             03 // ATTRIBUTES (POINT BUY)
           </h3>
           <p class="text-xs text-gray-400 mb-5">You get <span class="text-moth-pink font-bold">12 points</span> to distribute. Max 6 per stat. Min 1. These shape your entire Life Building journey.</p>
@@ -307,9 +385,9 @@
         </section>
 
         <!-- Starting Traits -->
-        <section class="bg-moth-dark border border-white/10 rounded-2xl p-5">
-          <h3 class="font-display font-bold text-moth-pink tracking-widest text-sm mb-4 flex items-center gap-2">
-            <span class="w-2 h-2 bg-moth-pink rounded-full animate-pulse"></span>
+        <section id="questSection" class="bg-slate-950/80 border border-cyan-400/20 rounded-2xl p-5">
+          <h3 class="font-display font-bold text-cyan-300 tracking-widest text-sm mb-4 flex items-center gap-2">
+            <span class="w-2 h-2 bg-cyan-300 rounded-full animate-pulse"></span>
             04 // STARTING TRAITS (PICK 2)
           </h3>
           
@@ -481,7 +559,7 @@
       
       <div class="flex gap-3">
         <button id="closeModal" class="flex-1 py-3 border border-white/20 rounded-xl text-sm hover:border-moth-pink transition">Tweak</button>
-        <button class="flex-1 py-3 bg-moth-pink rounded-xl text-sm font-bold hover:bg-moth-hot transition">START GAME →</button>
+        <button id="startGameBtn" class="flex-1 py-3 bg-moth-pink rounded-xl text-sm font-bold hover:bg-moth-hot transition">START GAME →</button>
       </div>
     </div>
   </div>
@@ -505,7 +583,14 @@
         legacy: 1
       },
       traits: [],
-      pack: 'free'
+      pack: 'free',
+      progress: {
+        xp: 0,
+        level: 1,
+        quests: 0,
+        challenges: 0,
+        unlocks: 0
+      }
     };
 
     const TOTAL_POINTS = 12;
@@ -516,6 +601,13 @@
       legend: { label: 'Legend pack', detail: 'Unlocks the entire empire • all future content', unlocked: true }
     };
     const MAX_STAT = 6;
+    const questMilestones = [
+      { label: 'First Identity', target: 1 },
+      { label: '1st Quest Clear', target: 2 },
+      { label: 'Full Build', target: 3 },
+      { label: 'Empire Ready', target: 4 },
+      { label: 'Legendary Exit', target: 5 }
+    ];
     const MIN_STAT = 1;
 
     const lookImages = [
@@ -704,7 +796,32 @@
     // ========== UPDATE UI ==========
     function updateUI() {
       const currentPack = packMeta[state.pack] || packMeta.free;
-      document.getElementById('packStatus').textContent = `${currentPack.label} • ${currentPack.detail}`;
+      const statusEl = document.getElementById('packStatus');
+      if (statusEl) statusEl.textContent = `${currentPack.label} • ${currentPack.detail}`;
+      const questProgress = Math.min(100, Math.round((Object.values(state.stats).reduce((sum, val) => sum + val, 0) / 36) * 100));
+      const milestoneCount = Math.min(questMilestones.length, Math.floor(questProgress / 20));
+      const empireMeter = document.getElementById('empireMeter');
+      if (empireMeter) empireMeter.style.width = `${questProgress}%`;
+      const empireMeterText = document.getElementById('empireMeterText');
+      if (empireMeterText) empireMeterText.textContent = `Empire Rise • ${milestoneCount} / ${questMilestones.length} milestones`;
+      const streakBadge = document.getElementById('streakBadge');
+      if (streakBadge) streakBadge.textContent = `Streak: ${Math.max(0, state.stats.health + state.stats.image - 2)} days`;
+
+      const totalStatPoints = Object.values(state.stats).reduce((sum, val) => sum + val, 0);
+      const xp = Math.min(100, totalStatPoints * 10 + state.progress.quests * 12 + state.progress.challenges * 8 + (state.pack === 'legend' ? 12 : 0));
+      const level = 1 + Math.floor(xp / 100);
+      const appLevel = document.getElementById('appLevel');
+      if (appLevel) appLevel.textContent = `Level ${level}`;
+      const appXp = document.getElementById('appXp');
+      if (appXp) appXp.textContent = `XP ${xp} / 100`;
+      const questLog = document.getElementById('questLog');
+      if (questLog) questLog.textContent = `${state.progress.quests + 2} active quests`;
+      const streetMap = document.getElementById('streetMap');
+      if (streetMap) streetMap.textContent = `${originLabels[state.origin]} • ${state.drive === 'money' ? 'street hustle' : state.drive === 'legacy' ? 'family boardroom' : state.drive === 'freedom' ? 'open sky' : 'power lane'} • ${state.pack === 'free' ? 'core route' : 'premium route'}`;
+      const vaultStatus = document.getElementById('vaultStatus');
+      if (vaultStatus) vaultStatus.textContent = state.pack === 'free' ? 'Core access ready' : 'Vault unlocked';
+      const nextUnlock = document.getElementById('nextUnlock');
+      if (nextUnlock) nextUnlock.textContent = state.pack === 'free' ? 'Next unlock: complete your first challenge' : 'Next unlock: full empire run activated';
       document.querySelectorAll('.pack-btn').forEach(btn => {
         const isActive = btn.dataset.pack === state.pack;
         btn.classList.toggle('bg-moth-pink', isActive);
@@ -819,6 +936,27 @@
       });
     });
 
+    document.getElementById('playNowBtn')?.addEventListener('click', () => {
+      state.progress.xp += 20;
+      state.progress.quests += 1;
+      state.progress.unlocks += 1;
+      updateUI();
+    });
+
+    document.getElementById('dailyChallengeBtn')?.addEventListener('click', () => {
+      state.progress.challenges += 1;
+      state.progress.xp += 15;
+      state.stats.health = Math.min(MAX_STAT, state.stats.health + 1);
+      state.stats.image = Math.min(MAX_STAT, state.stats.image + 1);
+      updateUI();
+    });
+
+    document.getElementById('unlockBtn')?.addEventListener('click', () => {
+      state.pack = state.pack === 'legend' ? 'legend' : state.pack === 'pro' ? 'legend' : state.pack === 'basic' ? 'pro' : 'basic';
+      state.progress.unlocks += 1;
+      updateUI();
+    });
+
     document.querySelectorAll('#lookPresets button').forEach(btn => {
       btn.addEventListener('click', () => {
         state.look = parseInt(btn.dataset.look);
@@ -885,11 +1023,26 @@
       modal.classList.add('flex');
     });
 
+    function closeModalAndStartGame() {
+      const modal = document.getElementById('successModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+      hideSplash();
+      const target = document.getElementById('creatorSection') || document.querySelector('main');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
     document.getElementById('closeModal').addEventListener('click', () => {
       const modal = document.getElementById('successModal');
       modal.classList.add('hidden');
       modal.classList.remove('flex');
     });
+
+    document.getElementById('startGameBtn').addEventListener('click', closeModalAndStartGame);
 
     const appSplash = document.getElementById('appSplash');
     const enterAppBtn = document.getElementById('enterAppBtn');
@@ -897,11 +1050,13 @@
     function hideSplash() {
       if (appSplash) {
         appSplash.classList.add('hidden');
+        appSplash.style.display = 'none';
+        appSplash.style.pointerEvents = 'none';
       }
     }
 
     if (enterAppBtn) {
-      enterAppBtn.addEventListener('click', hideSplash);
+      enterAppBtn.addEventListener('click', closeModalAndStartGame);
     }
     setTimeout(hideSplash, 1800);
 
