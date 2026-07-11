@@ -1,0 +1,17 @@
+{
+  "name": "supreme-empire",
+  "version": "1.0.0",
+  "description": "MOTH EMPIRE Character Creator",
+  "type": "module",
+  "scripts": {
+    "build": "node build.js",
+    "dev": "npx serve ."
+  },
+  "dependencies": {
+    "@vercel/speed-insights": "^1.0.12"
+  },
+  "devDependencies": {
+    "serve": "^14.2.1",
+    "esbuild": "^0.20.0"
+  }
+}
