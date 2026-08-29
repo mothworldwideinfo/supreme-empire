@@ -8,710 +8,221 @@
   <!-- Vercel Speed Insights -->
   <script defer src="/dist/speed-insights.bundle.js"></script>
   
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MOTH EMPIRE — Made Out The Hood</title>
+  <meta name="description" content="MOTH EMPIRE streetwear. Limited drops out of Charlotte. Waitlist first. Paper trading is just a toy." />
+  <meta name="theme-color" content="#ff2d95" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            moth: {
-              pink: '#ff2d95',
-              hot: '#ff006e',
-              black: '#0a0a0a',
-              dark: '#111111',
-              chrome: '#e0e0e0',
-              neon: '#00f5ff'
-            }
+            moth: { pink: '#ff2d95', hot: '#c026d3', black: '#050505', ink: '#0b0b0f' }
           },
           fontFamily: {
             display: ['Orbitron', 'system-ui', 'sans-serif'],
             body: ['Inter', 'system-ui', 'sans-serif']
-          },
-          boxShadow: {
-            'neon-pink': '0 0 20px rgba(255, 45, 149, 0.6), 0 0 40px rgba(255, 45, 149, 0.3)',
-            'neon-sm': '0 0 10px rgba(255, 45, 149, 0.5)'
           }
         }
       }
     }
   </script>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    /* Grain overlay for raw street aesthetic */
+    body { background: #050505; }
     body::before {
       content: '';
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 50;
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background-image: radial-gradient(circle at 20% 0%, rgba(255,45,149,.16), transparent 36%),
+        radial-gradient(circle at 90% 80%, rgba(192,38,211,.1), transparent 32%);
     }
-    
-    .stat-bar {
-      transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    
-    .preview-glow {
-      box-shadow: 0 0 60px rgba(255, 45, 149, 0.25), inset 0 0 40px rgba(255, 45, 149, 0.05);
-    }
-    
-    .option-card {
-      transition: all 0.2s ease;
-    }
-    .option-card:hover, .option-card.active {
-      border-color: #ff2d95;
-      box-shadow: 0 0 15px rgba(255, 45, 149, 0.4);
-      transform: translateY(-2px);
-    }
-    
-    .slider::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background: #ff2d95;
-      cursor: pointer;
-      box-shadow: 0 0 10px #ff2d95;
-    }
-    
-    .slider::-moz-range-thumb {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background: #ff2d95;
-      cursor: pointer;
-      border: none;
-      box-shadow: 0 0 10px #ff2d95;
-    }
-    
-    /* Animated moth particle */
-    @keyframes float {
-      0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
-      50% { transform: translateY(-12px) rotate(5deg); opacity: 1; }
-    }
-    .moth-float {
-      animation: float 4s ease-in-out infinite;
-    }
-    
-    /* Distressed text */
-    .distressed {
-      text-shadow: 2px 2px 0 #ff2d95, -1px -1px 0 #00f5ff;
-    }
-    
-    /* Scrollbar */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #0a0a0a; }
-    ::-webkit-scrollbar-thumb { background: #ff2d95; border-radius: 3px; }
+    .grain { position: relative; z-index: 1; }
+    .ticker { animation: ticker 28s linear infinite; }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
   </style>
 </head>
-<body class="bg-moth-black text-white font-body min-h-screen overflow-x-hidden">
-  
-  <!-- Top Bar -->
-  <header class="fixed top-0 left-0 right-0 z-40 bg-black/80 backdrop-blur-md border-b border-moth-pink/30">
-    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-moth-pink to-moth-hot flex items-center justify-center shadow-neon-sm">
-          <span class="font-display font-black text-sm">M</span>
+<body class="bg-moth-black text-white font-body">
+  <div class="grain">
+    <div class="overflow-hidden border-b border-white/10 bg-black text-[11px] uppercase tracking-[0.28em] text-moth-pink">
+      <div class="ticker flex whitespace-nowrap py-2">
+        <span class="px-8">MOTH EMPIRE</span><span class="px-8">Charlotte first</span><span class="px-8">Laurens after</span><span class="px-8">Waitlist open</span><span class="px-8">Paper sim is a toy</span>
+        <span class="px-8">MOTH EMPIRE</span><span class="px-8">Charlotte first</span><span class="px-8">Laurens after</span><span class="px-8">Waitlist open</span><span class="px-8">Paper sim is a toy</span>
+      </div>
+    </div>
+
+    <header class="sticky top-0 z-40 border-b border-white/10 bg-black/80 backdrop-blur">
+      <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+        <a href="#top" class="flex items-center gap-3">
+          <img src="https://raw.githubusercontent.com/mothworldwideinfo/supreme-empire/main/DJ2fR.jpg" alt="MOTH" class="h-10 w-10 rounded-full object-cover ring-1 ring-moth-pink/50" />
+          <div>
+            <div class="font-display text-sm tracking-[0.28em]">MOTH EMPIRE</div>
+            <div class="text-[10px] uppercase tracking-[0.3em] text-gray-500">Made Out The Hood</div>
+          </div>
+        </a>
+        <nav class="hidden items-center gap-6 text-[11px] uppercase tracking-[0.22em] text-gray-300 sm:flex">
+          <a href="#drop" class="hover:text-moth-pink">Drop</a>
+          <a href="#lookbook" class="hover:text-moth-pink">Lookbook</a>
+          <a href="#waitlist" class="hover:text-moth-pink">Waitlist</a>
+          <a href="#sim" class="hover:text-moth-pink">Sim toy</a>
+          <a href="game.html" class="hover:text-moth-pink">Game</a>
+        </nav>
+        <a href="#waitlist" class="rounded-full bg-moth-pink px-4 py-2 text-[11px] font-bold uppercase tracking-[0.2em] text-black">Join list</a>
+      </div>
+    </header>
+
+    <section id="top" class="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 lg:grid-cols-2">
+      <div>
+        <p class="font-display text-[11px] uppercase tracking-[0.4em] text-moth-pink">Streetwear first. Everything else is extra.</p>
+        <h1 class="mt-4 font-display text-4xl font-black leading-none tracking-tight sm:text-6xl">
+          MADE OUT<br /><span class="text-moth-pink">THE HOOD</span>
+        </h1>
+        <p class="mt-5 max-w-md text-sm leading-relaxed text-gray-300">
+          Limited moth drip. Pink, raw, tattoo-true. Charlotte builds it. Laurens remembers it.
+          Get on the list before the first drop sells the sample rack.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="#waitlist" class="rounded-full bg-moth-pink px-6 py-3 font-display text-xs font-black uppercase tracking-[0.25em] text-black">Get drop alerts</a>
+          <a href="#lookbook" class="rounded-full border border-white/20 px-6 py-3 font-display text-xs font-black uppercase tracking-[0.25em]">See the drip</a>
         </div>
+      </div>
+      <div class="relative">
+        <div class="absolute -inset-4 rounded-[2rem] bg-moth-pink/20 blur-2xl"></div>
+        <img src="https://raw.githubusercontent.com/mothworldwideinfo/supreme-empire/main/RzxY2.jpg" alt="Pink MOTH hoodie" class="relative z-10 w-full rounded-[2rem] border border-moth-pink/40 object-cover" />
+      </div>
+    </section>
+
+    <section id="drop" class="border-y border-white/10 bg-moth-ink">
+      <div class="mx-auto max-w-6xl px-4 py-16">
+        <p class="font-display text-[11px] uppercase tracking-[0.35em] text-moth-pink">01 // First drop</p>
+        <h2 class="mt-2 font-display text-3xl font-black">One hero piece. Not a mall rack.</h2>
+        <div class="mt-8 grid gap-6 md:grid-cols-3">
+          <article class="overflow-hidden rounded-3xl border border-white/10 bg-black">
+            <img src="https://raw.githubusercontent.com/mothworldwideinfo/supreme-empire/main/RzxY2.jpg" alt="Pink hoodie" class="h-64 w-full object-cover object-top" />
+            <div class="p-5">
+              <div class="text-[10px] uppercase tracking-[0.3em] text-gray-500">Hero</div>
+              <h3 class="mt-1 font-display text-lg">PINK HOODIE</h3>
+              <p class="mt-2 text-sm text-gray-400">Heavyweight. Distressed moth. Waitlist pricing drops with the sample.</p>
+              <p class="mt-3 text-moth-pink">Waitlist only</p>
+            </div>
+          </article>
+          <article class="overflow-hidden rounded-3xl border border-white/10 bg-black">
+            <img src="https://raw.githubusercontent.com/mothworldwideinfo/supreme-empire/main/ID79n.jpg" alt="Harness drip" class="h-64 w-full object-cover object-top" />
+            <div class="p-5">
+              <div class="text-[10px] uppercase tracking-[0.3em] text-gray-500">Next</div>
+              <h3 class="mt-1 font-display text-lg">HARNESS</h3>
+              <p class="mt-2 text-sm text-gray-400">Layer piece. Club-to-daylight. Ships after hoodie proves demand.</p>
+              <p class="mt-3 text-gray-500">Coming after drop 01</p>
+            </div>
+          </article>
+          <article class="overflow-hidden rounded-3xl border border-white/10 bg-black">
+            <img src="https://raw.githubusercontent.com/mothworldwideinfo/supreme-empire/main/ZicEm.jpg" alt="Crop glow" class="h-64 w-full object-cover object-top" />
+            <div class="p-5">
+              <div class="text-[10px] uppercase tracking-[0.3em] text-gray-500">Archive</div>
+              <h3 class="mt-1 font-display text-lg">CROP GLOW</h3>
+              <p class="mt-2 text-sm text-gray-400">Signature neck-moth energy. Not for the first carton.</p>
+              <p class="mt-3 text-gray-500">Locked</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="lookbook" class="mx-auto max-w-6xl px-4 py-16">
+      <p class="font-display text-[11px] uppercase tracking-[0.35em] text-moth-pink">02 // Lookbook</p>
+      <h2 class="mt-2 font-display text-3xl font-black">The silhouette is the logo.</h2>
+      <div class="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4">
+        <img src="https://raw.githubusercontent.com/mothworldwideinfo/supreme-empire/main/DJ2fR.jpg" alt="Moth mark" class="h-56 w-full rounded-2xl object-cover md:col-span-1" />
+        <img src="https://raw.githubusercontent.com/mothworldwideinfo/supreme-empire/main/RzxY2.jpg" alt="Look 1" class="h-56 w-full rounded-2xl object-cover object-top md:col-span-2" />
+        <img src="https://raw.githubusercontent.com/mothworldwideinfo/supreme-empire/main/ZicEm.jpg" alt="Look 2" class="h-56 w-full rounded-2xl object-cover object-top" />
+      </div>
+    </section>
+
+    <section id="waitlist" class="border-y border-moth-pink/30 bg-gradient-to-b from-moth-pink/10 to-black">
+      <div class="mx-auto max-w-xl px-4 py-16 text-center">
+        <p class="font-display text-[11px] uppercase tracking-[0.35em] text-moth-pink">03 // Email list</p>
+        <h2 class="mt-2 font-display text-3xl font-black">Get the drop. Not the spam.</h2>
+        <p class="mt-3 text-sm text-gray-300">Size, city, email. We use this list for drop codes only. Export lives on this device until you hook Formspree.</p>
+
+        <form id="waitlistForm" class="mt-8 space-y-3 text-left">
+          <label class="block text-[11px] uppercase tracking-[0.2em] text-gray-400">Email
+            <input required type="email" name="email" autocomplete="email" class="mt-1 w-full rounded-xl border border-white/15 bg-black px-4 py-3 text-sm outline-none focus:border-moth-pink" placeholder="you@domain.com" />
+          </label>
+          <div class="grid gap-3 sm:grid-cols-2">
+            <label class="block text-[11px] uppercase tracking-[0.2em] text-gray-400">Name
+              <input type="text" name="name" class="mt-1 w-full rounded-xl border border-white/15 bg-black px-4 py-3 text-sm outline-none focus:border-moth-pink" placeholder="Street name" />
+            </label>
+            <label class="block text-[11px] uppercase tracking-[0.2em] text-gray-400">City
+              <input type="text" name="city" class="mt-1 w-full rounded-xl border border-white/15 bg-black px-4 py-3 text-sm outline-none focus:border-moth-pink" placeholder="Charlotte" />
+            </label>
+          </div>
+          <label class="block text-[11px] uppercase tracking-[0.2em] text-gray-400">Size
+            <select name="size" class="mt-1 w-full rounded-xl border border-white/15 bg-black px-4 py-3 text-sm outline-none focus:border-moth-pink">
+              <option value="">Select</option>
+              <option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>2XL</option>
+            </select>
+          </label>
+          <button type="submit" class="w-full rounded-full bg-moth-pink py-3 font-display text-xs font-black uppercase tracking-[0.28em] text-black">Add me to the list</button>
+          <p id="waitlistMsg" class="min-h-[1.25rem] text-center text-sm text-moth-pink"></p>
+        </form>
+
+        <div class="mt-6 flex flex-wrap justify-center gap-3 text-[11px] uppercase tracking-[0.2em]">
+          <span id="listCount">0 on this device</span>
+          <a href="emails.html" class="text-moth-pink underline">Open list / export CSV</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="sim" class="mx-auto max-w-6xl px-4 py-16">
+      <div class="mb-6 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 class="font-display font-bold text-lg tracking-wider text-moth-pink">MOTH EMPIRE</h1>
-          <p class="text-[10px] text-gray-400 tracking-[0.3em] uppercase">Made Out The Hood // Character Creator</p>
+          <p class="font-display text-[11px] uppercase tracking-[0.35em] text-gray-500">04 // Toy</p>
+          <h2 class="mt-2 font-display text-3xl font-black">Paper portfolio</h2>
+          <p class="mt-2 max-w-xl text-sm text-gray-400">Fake $10k against live CoinGecko prices. This does not make the brand money. It is a plaything under the shop.</p>
         </div>
-      </div>
-      <div class="flex items-center gap-4">
-        <span class="text-xs text-gray-400 hidden sm:block">POINTS LEFT: <span id="pointsLeft" class="text-moth-pink font-bold text-base">12</span></span>
-        <button id="resetBtn" class="text-xs px-3 py-1.5 border border-gray-600 rounded hover:border-moth-pink hover:text-moth-pink transition">RESET</button>
-      </div>
-    </div>
-  </header>
-
-  <main class="pt-20 pb-12 max-w-7xl mx-auto px-4">
-    
-    <!-- Title -->
-    <div class="text-center mb-8 mt-4">
-      <h2 class="font-display font-black text-3xl sm:text-5xl tracking-tighter distressed mb-2">
-        BUILD YOUR <span class="text-moth-pink">EMPIRE SELF</span>
-      </h2>
-      <p class="text-gray-400 text-sm max-w-xl mx-auto">
-        Start from the block. Allocate your grit. Choose your look. Become the moth that flies out the hood.
-      </p>
-    </div>
-
-    <div class="grid lg:grid-cols-12 gap-6">
-      
-      <!-- LEFT: Controls -->
-      <div class="lg:col-span-7 space-y-6">
-        
-        <!-- Identity Section -->
-        <section class="bg-moth-dark border border-white/10 rounded-2xl p-5 relative overflow-hidden">
-          <div class="absolute top-0 right-0 w-32 h-32 bg-moth-pink/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-          
-          <h3 class="font-display font-bold text-moth-pink tracking-widest text-sm mb-4 flex items-center gap-2">
-            <span class="w-2 h-2 bg-moth-pink rounded-full animate-pulse"></span>
-            01 // IDENTITY
-          </h3>
-          
-          <div class="grid sm:grid-cols-2 gap-4">
-            <div>
-              <label class="block text-xs text-gray-400 mb-1.5 uppercase tracking-wider">Street Name / Alias</label>
-              <input type="text" id="charName" value="ELEVEN" maxlength="16"
-                class="w-full bg-black border border-white/20 rounded-lg px-4 py-3 text-lg font-display font-bold tracking-wider focus:border-moth-pink focus:outline-none focus:ring-1 focus:ring-moth-pink transition"
-                placeholder="YOUR NAME">
-            </div>
-            <div>
-              <label class="block text-xs text-gray-400 mb-1.5 uppercase tracking-wider">Origin</label>
-              <select id="charOrigin" class="w-full bg-black border border-white/20 rounded-lg px-4 py-3 text-sm focus:border-moth-pink focus:outline-none appearance-none">
-                <option value="hood">The Hood (Start from zero)</option>
-                <option value="south">South End / Charlotte</option>
-                <option value="sc">Laurens SC Roots</option>
-                <option value="anywhere">Anywhere USA</option>
-              </select>
-            </div>
-          </div>
-          
-          <div class="mt-4">
-            <label class="block text-xs text-gray-400 mb-1.5 uppercase tracking-wider">Core Drive</label>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2" id="driveOptions">
-              <button data-drive="money" class="option-card active bg-black border border-moth-pink rounded-lg py-2.5 px-2 text-xs font-medium">💰 Bags First</button>
-              <button data-drive="legacy" class="option-card bg-black border border-white/20 rounded-lg py-2.5 px-2 text-xs font-medium">👑 Family Legacy</button>
-              <button data-drive="freedom" class="option-card bg-black border border-white/20 rounded-lg py-2.5 px-2 text-xs font-medium">🦋 True Freedom</button>
-              <button data-drive="power" class="option-card bg-black border border-white/20 rounded-lg py-2.5 px-2 text-xs font-medium">⚡ Empire Power</button>
-            </div>
-          </div>
-        </section>
-
-        <!-- Look Section -->
-        <section class="bg-moth-dark border border-white/10 rounded-2xl p-5">
-          <h3 class="font-display font-bold text-moth-pink tracking-widest text-sm mb-4 flex items-center gap-2">
-            <span class="w-2 h-2 bg-moth-pink rounded-full animate-pulse"></span>
-            02 // LOOK (MOTH DRIP)
-          </h3>
-          
-          <div class="grid grid-cols-3 gap-3 mb-5" id="lookPresets">
-            <button data-look="0" class="option-card active rounded-xl overflow-hidden border-2 border-moth-pink relative group">
-              <img src="RzxY2.jpg" alt="Pink MOTH Hoodie" class="w-full h-32 object-cover object-top">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-              <span class="absolute bottom-2 left-2 right-2 text-[10px] font-bold text-center">PINK HOODIE</span>
-            </button>
-            <button data-look="1" class="option-card rounded-xl overflow-hidden border-2 border-white/20 relative group">
-              <img src="ID79n.jpg" alt="Harness Drip" class="w-full h-32 object-cover object-top">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-              <span class="absolute bottom-2 left-2 right-2 text-[10px] font-bold text-center">HARNESS</span>
-            </button>
-            <button data-look="2" class="option-card rounded-xl overflow-hidden border-2 border-white/20 relative group">
-              <img src="ZicEm.jpg" alt="Crop Glow" class="w-full h-32 object-cover object-top">
-              <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-              <span class="absolute bottom-2 left-2 right-2 text-[10px] font-bold text-center">CROP GLOW</span>
-            </button>
-          </div>
-          
-          <div class="space-y-4">
-            <div>
-              <label class="flex justify-between text-xs text-gray-400 mb-1.5">
-                <span>SKIN TONE</span>
-                <span id="skinLabel" class="text-moth-pink">Deep</span>
-              </label>
-              <input type="range" id="skinTone" min="0" max="4" value="2" class="slider w-full h-1.5 bg-gray-800 rounded-lg appearance-none cursor-pointer">
-            </div>
-            <div>
-              <label class="flex justify-between text-xs text-gray-400 mb-1.5">
-                <span>HAIR ENERGY</span>
-                <span id="hairLabel" class="text-moth-pink">Buzz / Pink</span>
-              </label>
-              <input type="range" id="hairStyle" min="0" max="3" value="1" class="slider w-full h-1.5 bg-gray-800 rounded-lg appearance-none cursor-pointer">
-            </div>
-            <div>
-              <label class="flex justify-between text-xs text-gray-400 mb-1.5">
-                <span>TATTOO VISIBILITY</span>
-                <span id="tattooLabel" class="text-moth-pink">Neck Butterfly (Signature)</span>
-              </label>
-              <input type="range" id="tattooVis" min="0" max="2" value="2" class="slider w-full h-1.5 bg-gray-800 rounded-lg appearance-none cursor-pointer">
-            </div>
-          </div>
-          
-          <p class="text-[11px] text-gray-500 mt-3 italic">* All looks feature the signature moth/butterfly motif from the Empire tattoo. Image is the drip. Stats are the real power.</p>
-        </section>
-
-        <!-- Stats Section -->
-        <section class="bg-moth-dark border border-white/10 rounded-2xl p-5">
-          <h3 class="font-display font-bold text-moth-pink tracking-widest text-sm mb-2 flex items-center gap-2">
-            <span class="w-2 h-2 bg-moth-pink rounded-full animate-pulse"></span>
-            03 // ATTRIBUTES (POINT BUY)
-          </h3>
-          <p class="text-xs text-gray-400 mb-5">You get <span class="text-moth-pink font-bold">12 points</span> to distribute. Max 6 per stat. Min 1. These shape your entire Life Building journey.</p>
-          
-          <div class="space-y-5" id="statsContainer">
-            <!-- Stats will be injected by JS -->
-          </div>
-          
-          <div class="mt-6 p-3 bg-black/50 rounded-xl border border-white/5 flex items-center justify-between">
-            <span class="text-sm text-gray-300">Total Allocated</span>
-            <span class="font-display font-bold text-xl"><span id="totalPoints">0</span> / 12</span>
-          </div>
-        </section>
-
-        <!-- Starting Traits -->
-        <section class="bg-moth-dark border border-white/10 rounded-2xl p-5">
-          <h3 class="font-display font-bold text-moth-pink tracking-widest text-sm mb-4 flex items-center gap-2">
-            <span class="w-2 h-2 bg-moth-pink rounded-full animate-pulse"></span>
-            04 // STARTING TRAITS (PICK 2)
-          </h3>
-          
-          <div class="grid grid-cols-2 sm:grid-cols-3 gap-2" id="traitsGrid">
-            <button data-trait="hustler" class="option-card trait-btn bg-black border border-white/20 rounded-lg p-3 text-left">
-              <div class="text-lg mb-1">🔥</div>
-              <div class="text-xs font-bold">Hustler Mindset</div>
-              <div class="text-[10px] text-gray-400">+1 Money generation</div>
-            </button>
-            <button data-trait="math" class="option-card trait-btn bg-black border border-white/20 rounded-lg p-3 text-left">
-              <div class="text-lg mb-1">📐</div>
-              <div class="text-xs font-bold">Street Math</div>
-              <div class="text-[10px] text-gray-400">Better at Cool Math Games</div>
-            </button>
-            <button data-trait="hygiene" class="option-card trait-btn bg-black border border-white/20 rounded-lg p-3 text-left">
-              <div class="text-lg mb-1">✨</div>
-              <div class="text-xs font-bold">Boss Hygiene</div>
-              <div class="text-[10px] text-gray-400">Image & confidence boost</div>
-            </button>
-            <button data-trait="crypto" class="option-card trait-btn bg-black border border-white/20 rounded-lg p-3 text-left">
-              <div class="text-lg mb-1">₿</div>
-              <div class="text-xs font-bold">Bitcoin Native</div>
-              <div class="text-[10px] text-gray-400">Start with sats knowledge</div>
-            </button>
-            <button data-trait="family" class="option-card trait-btn bg-black border border-white/20 rounded-lg p-3 text-left">
-              <div class="text-lg mb-1">🧬</div>
-              <div class="text-xs font-bold">Legacy Blood</div>
-              <div class="text-[10px] text-gray-400">Stronger Network & Legacy</div>
-            </button>
-            <button data-trait="rebel" class="option-card trait-btn bg-black border border-white/20 rounded-lg p-3 text-left">
-              <div class="text-lg mb-1">🦋</div>
-              <div class="text-xs font-bold">Moth Rebellion</div>
-              <div class="text-[10px] text-gray-400">Unique quests & drip</div>
-            </button>
-          </div>
-          <p class="text-[11px] text-gray-500 mt-3">Selected: <span id="selectedTraitsCount">0</span>/2</p>
-        </section>
+        <button id="resetSim" class="text-[11px] uppercase tracking-[0.2em] text-moth-pink">Reset to $10,000</button>
       </div>
 
-      <!-- RIGHT: Live Preview + Summary -->
-      <div class="lg:col-span-5">
-        <div class="sticky top-24 space-y-5">
-          
-          <!-- Character Preview Card -->
-          <div class="bg-moth-dark border border-moth-pink/40 rounded-2xl overflow-hidden preview-glow relative">
-            <div class="absolute top-3 left-3 z-10 flex items-center gap-2">
-              <div class="w-8 h-8 rounded-full bg-moth-pink/20 border border-moth-pink flex items-center justify-center moth-float">
-                <img src="DJ2fR.jpg" alt="Moth" class="w-5 h-5 object-contain">
-              </div>
-              <span class="text-[10px] font-display tracking-widest text-moth-pink">LIVE PREVIEW</span>
-            </div>
-            
-            <div class="relative h-[420px] sm:h-[480px] bg-gradient-to-b from-black via-moth-dark to-black overflow-hidden">
-              <img id="previewImg" src="RzxY2.jpg" alt="Your Character" 
-                   class="w-full h-full object-cover object-top transition-all duration-500">
-              
-              <!-- Overlay info -->
-              <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/90 to-transparent p-5 pt-16">
-                <div class="flex items-end justify-between">
-                  <div>
-                    <h3 id="previewName" class="font-display font-black text-2xl tracking-wider text-white">ELEVEN</h3>
-                    <p id="previewOrigin" class="text-xs text-moth-pink tracking-widest uppercase">The Hood</p>
-                  </div>
-                  <div class="text-right">
-                    <div class="text-[10px] text-gray-400">DRIVE</div>
-                    <div id="previewDrive" class="text-sm font-bold text-moth-pink">💰 Bags First</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Mini Stat Bars -->
-            <div class="p-4 bg-black/60 border-t border-white/10 grid grid-cols-3 gap-x-3 gap-y-2 text-[10px]">
-              <div class="flex items-center gap-1.5">
-                <span class="text-gray-400 w-10">MIND</span>
-                <div class="flex-1 h-1.5 bg-gray-800 rounded-full overflow-hidden">
-                  <div id="bar-mind" class="stat-bar h-full bg-gradient-to-r from-moth-neon to-cyan-400" style="width: 16%"></div>
-                </div>
-                <span id="val-mind" class="w-3 text-right font-bold">1</span>
-              </div>
-              <div class="flex items-center gap-1.5">
-                <span class="text-gray-400 w-10">MONEY</span>
-                <div class="flex-1 h-1.5 bg-gray-800 rounded-full overflow-hidden">
-                  <div id="bar-money" class="stat-bar h-full bg-gradient-to-r from-yellow-400 to-amber-500" style="width: 16%"></div>
-                </div>
-                <span id="val-money" class="w-3 text-right font-bold">1</span>
-              </div>
-              <div class="flex items-center gap-1.5">
-                <span class="text-gray-400 w-10">IMAGE</span>
-                <div class="flex-1 h-1.5 bg-gray-800 rounded-full overflow-hidden">
-                  <div id="bar-image" class="stat-bar h-full bg-gradient-to-r from-moth-pink to-moth-hot" style="width: 16%"></div>
-                </div>
-                <span id="val-image" class="w-3 text-right font-bold">1</span>
-              </div>
-              <div class="flex items-center gap-1.5">
-                <span class="text-gray-400 w-10">NET</span>
-                <div class="flex-1 h-1.5 bg-gray-800 rounded-full overflow-hidden">
-                  <div id="bar-network" class="stat-bar h-full bg-gradient-to-r from-purple-400 to-violet-500" style="width: 16%"></div>
-                </div>
-                <span id="val-network" class="w-3 text-right font-bold">1</span>
-              </div>
-              <div class="flex items-center gap-1.5">
-                <span class="text-gray-400 w-10">HEALTH</span>
-                <div class="flex-1 h-1.5 bg-gray-800 rounded-full overflow-hidden">
-                  <div id="bar-health" class="stat-bar h-full bg-gradient-to-r from-green-400 to-emerald-500" style="width: 16%"></div>
-                </div>
-                <span id="val-health" class="w-3 text-right font-bold">1</span>
-              </div>
-              <div class="flex items-center gap-1.5">
-                <span class="text-gray-400 w-10">LEGACY</span>
-                <div class="flex-1 h-1.5 bg-gray-800 rounded-full overflow-hidden">
-                  <div id="bar-legacy" class="stat-bar h-full bg-gradient-to-r from-orange-400 to-red-500" style="width: 16%"></div>
-                </div>
-                <span id="val-legacy" class="w-3 text-right font-bold">1</span>
-              </div>
-            </div>
-          </div>
+      <div class="grid gap-3 md:grid-cols-3">
+        <div class="rounded-2xl border border-white/10 bg-black p-4"><div class="text-[10px] uppercase tracking-[0.25em] text-gray-500">Cash</div><div id="cashBal" class="font-display text-2xl">$10,000.00</div></div>
+        <div class="rounded-2xl border border-white/10 bg-black p-4"><div class="text-[10px] uppercase tracking-[0.25em] text-gray-500">Holdings</div><div id="holdBal" class="font-display text-2xl">$0.00</div></div>
+        <div class="rounded-2xl border border-moth-pink/40 bg-black p-4"><div class="text-[10px] uppercase tracking-[0.25em] text-moth-pink">Total</div><div id="totBal" class="font-display text-2xl">$10,000.00</div></div>
+      </div>
 
-          <!-- Traits Preview -->
-          <div class="bg-moth-dark border border-white/10 rounded-xl p-4">
-            <div class="text-[10px] text-gray-400 uppercase tracking-widest mb-2">Active Traits</div>
-            <div id="activeTraitsPreview" class="flex flex-wrap gap-2 min-h-[28px]">
-              <span class="text-xs text-gray-500 italic">Pick 2 traits above...</span>
-            </div>
-          </div>
+      <div class="mt-6 overflow-x-auto rounded-2xl border border-white/10">
+        <table class="min-w-full text-left text-sm">
+          <thead class="bg-white/5 text-[10px] uppercase tracking-[0.2em] text-gray-500">
+            <tr><th class="px-4 py-3">Asset</th><th class="px-4 py-3">Price</th><th class="px-4 py-3">24h</th><th class="px-4 py-3"></th></tr>
+          </thead>
+          <tbody id="watchBody">
+            <tr><td class="px-4 py-6 text-gray-500" colspan="4">Loading live prices…</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-3 text-[11px] text-gray-600">Paper trading only. Not financial advice. Not a broker. Live prices via CoinGecko.</p>
+    </section>
 
-          <!-- Finalize Button -->
-          <button id="createBtn" class="w-full group relative overflow-hidden rounded-2xl bg-gradient-to-r from-moth-pink to-moth-hot py-5 font-display font-black text-lg tracking-wider shadow-neon-pink hover:shadow-[0_0_40px_rgba(255,45,149,0.8)] transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none">
-            <span class="relative z-10 flex items-center justify-center gap-3">
-              ENTER THE EMPIRE
-              <svg class="w-5 h-5 group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
-            </span>
-          </button>
-          
-          <p class="text-center text-[11px] text-gray-500">
-            Character saves to this device. Ready for Life Building Game, Math Quests, Bitcoin Runs & Hygiene Streaks.
-          </p>
-        </div>
-      </div>
-    </div>
-  </main>
+    <footer class="border-t border-white/10 px-4 py-10 text-center text-[11px] uppercase tracking-[0.22em] text-gray-500">
+      <p>MOTH Empire LLC · Made Out The Hood · Charlotte / Laurens</p>
+      <p class="mt-2">IG @diormurakami · Paper sim is a toy · 10% of net merch revenue to Charlotte solar when there is net revenue</p>
+    </footer>
+  </div>
 
-  <!-- Success Modal -->
-  <div id="successModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/90 backdrop-blur-sm">
-    <div class="bg-moth-dark border-2 border-moth-pink rounded-3xl max-w-md w-full p-8 text-center relative overflow-hidden shadow-neon-pink">
-      <div class="absolute -top-20 -right-20 w-40 h-40 bg-moth-pink/20 rounded-full blur-3xl"></div>
-      
-      <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-moth-pink to-moth-hot flex items-center justify-center shadow-neon-pink">
-        <span class="text-3xl">🦋</span>
+  <div id="tradeModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 p-4">
+    <div class="w-full max-w-sm rounded-2xl border border-moth-pink/40 bg-moth-ink p-5">
+      <h3 id="tradeTitle" class="font-display text-lg">Trade</h3>
+      <p id="tradePrice" class="mt-1 text-sm text-gray-400"></p>
+      <input id="tradeAmt" type="number" min="0" step="0.0001" class="mt-4 w-full rounded-xl border border-white/15 bg-black px-4 py-3 text-sm" placeholder="Amount" />
+      <div class="mt-4 flex gap-2">
+        <button id="buyBtn" class="flex-1 rounded-full bg-moth-pink py-2 text-xs font-black uppercase tracking-[0.2em] text-black">Buy</button>
+        <button id="sellBtn" class="flex-1 rounded-full border border-white/20 py-2 text-xs font-black uppercase tracking-[0.2em]">Sell</button>
       </div>
-      
-      <h3 class="font-display font-black text-2xl mb-2">YOU MADE IT OUT</h3>
-      <p class="text-moth-pink font-display tracking-widest text-sm mb-4" id="modalName">ELEVEN</p>
-      
-      <div class="bg-black/50 rounded-xl p-4 mb-6 text-left text-sm space-y-1">
-        <div class="flex justify-between"><span class="text-gray-400">Origin</span><span id="modalOrigin">The Hood</span></div>
-        <div class="flex justify-between"><span class="text-gray-400">Drive</span><span id="modalDrive">Bags First</span></div>
-        <div class="flex justify-between"><span class="text-gray-400">Traits</span><span id="modalTraits">—</span></div>
-      </div>
-      
-      <p class="text-xs text-gray-400 mb-6">Your character is locked in. The Life Building Game, Cool Math, Bitcoin runs, and Hygiene quests are waiting.</p>
-      
-      <div class="flex gap-3">
-        <button id="closeModal" class="flex-1 py-3 border border-white/20 rounded-xl text-sm hover:border-moth-pink transition">Tweak</button>
-        <button class="flex-1 py-3 bg-moth-pink rounded-xl text-sm font-bold hover:bg-moth-hot transition">START GAME →</button>
-      </div>
+      <button id="closeTrade" class="mt-3 w-full text-[11px] uppercase tracking-[0.2em] text-gray-500">Cancel</button>
     </div>
   </div>
 
-  <script>
-    // ========== STATE ==========
-    const state = {
-      name: 'ELEVEN',
-      origin: 'hood',
-      drive: 'money',
-      look: 0,
-      skin: 2,
-      hair: 1,
-      tattoo: 2,
-      stats: {
-        mind: 1,
-        money: 1,
-        image: 1,
-        network: 1,
-        health: 1,
-        legacy: 1
-      },
-      traits: []
-    };
-
-    const TOTAL_POINTS = 12;
-    const MAX_STAT = 6;
-    const MIN_STAT = 1;
-
-    const lookImages = [
-      'RzxY2.jpg',
-      'ID79n.jpg',
-      'ZicEm.jpg'
-    ];
-
-    const originLabels = {
-      hood: 'The Hood',
-      south: 'South End / Charlotte',
-      sc: 'Laurens SC Roots',
-      anywhere: 'Anywhere USA'
-    };
-
-    const driveLabels = {
-      money: '💰 Bags First',
-      legacy: '👑 Family Legacy',
-      freedom: '🦋 True Freedom',
-      power: '⚡ Empire Power'
-    };
-
-    const skinLabels = ['Light', 'Medium', 'Deep', 'Rich Deep', 'Melanin Max'];
-    const hairLabels = ['Natural', 'Buzz / Pink', 'Long & Luxe', 'Protective / Locs'];
-    const tattooLabels = ['Subtle', 'Visible', 'Neck Butterfly (Signature)'];
-
-    const traitData = {
-      hustler: { name: 'Hustler Mindset', icon: '🔥' },
-      math: { name: 'Street Math', icon: '📐' },
-      hygiene: { name: 'Boss Hygiene', icon: '✨' },
-      crypto: { name: 'Bitcoin Native', icon: '₿' },
-      family: { name: 'Legacy Blood', icon: '🧬' },
-      rebel: { name: 'Moth Rebellion', icon: '🦋' }
-    };
-
-    // ========== STATS UI ==========
-    const statsMeta = [
-      { key: 'mind', label: 'MIND', desc: 'Strategy, learning, math games, awareness', color: 'from-cyan-400 to-blue-500' },
-      { key: 'money', label: 'MONEY', desc: 'Cashflow, trading, stacking, business', color: 'from-yellow-400 to-amber-500' },
-      { key: 'image', label: 'IMAGE', desc: 'Drip, hygiene, confidence, presence', color: 'from-moth-pink to-moth-hot' },
-      { key: 'network', label: 'NETWORK', desc: 'Connections, referrals, community power', color: 'from-purple-400 to-violet-500' },
-      { key: 'health', label: 'HEALTH', desc: 'Energy, recovery, longevity, mental', color: 'from-green-400 to-emerald-500' },
-      { key: 'legacy', label: 'LEGACY', desc: 'Family, brand, impact that outlives you', color: 'from-orange-400 to-red-500' }
-    ];
-
-    function renderStats() {
-      const container = document.getElementById('statsContainer');
-      container.innerHTML = statsMeta.map(s => `
-        <div class="stat-row" data-stat="${s.key}">
-          <div class="flex items-center justify-between mb-1.5">
-            <div>
-              <span class="font-display font-bold text-sm tracking-wider">${s.label}</span>
-              <p class="text-[10px] text-gray-500">${s.desc}</p>
-            </div>
-            <div class="flex items-center gap-2">
-              <button class="stat-minus w-8 h-8 rounded-full border border-white/20 flex items-center justify-center hover:border-moth-pink hover:text-moth-pink transition text-lg leading-none" data-stat="${s.key}">−</button>
-              <span class="stat-value font-display font-black text-xl w-6 text-center text-moth-pink" id="stat-${s.key}">${state.stats[s.key]}</span>
-              <button class="stat-plus w-8 h-8 rounded-full border border-white/20 flex items-center justify-center hover:border-moth-pink hover:text-moth-pink transition text-lg leading-none" data-stat="${s.key}">+</button>
-            </div>
-          </div>
-          <div class="h-2 bg-gray-800 rounded-full overflow-hidden">
-            <div class="stat-bar h-full bg-gradient-to-r ${s.color}" style="width: ${(state.stats[s.key] / MAX_STAT) * 100}%" id="fill-${s.key}"></div>
-          </div>
-        </div>
-      `).join('');
-
-      // Bind buttons
-      document.querySelectorAll('.stat-plus').forEach(btn => {
-        btn.addEventListener('click', () => adjustStat(btn.dataset.stat, 1));
-      });
-      document.querySelectorAll('.stat-minus').forEach(btn => {
-        btn.addEventListener('click', () => adjustStat(btn.dataset.stat, -1));
-      });
-    }
-
-    function getUsedPoints() {
-      return Object.values(state.stats).reduce((a, b) => a + b, 0);
-    }
-
-    function adjustStat(key, delta) {
-      const current = state.stats[key];
-      const used = getUsedPoints();
-      const newVal = current + delta;
-
-      if (newVal < MIN_STAT || newVal > MAX_STAT) return;
-      if (delta > 0 && used >= TOTAL_POINTS) return;
-
-      state.stats[key] = newVal;
-      updateUI();
-    }
-
-    // ========== UPDATE UI ==========
-    function updateUI() {
-      // Name & Origin
-      document.getElementById('charName').value = state.name;
-      document.getElementById('previewName').textContent = state.name || '???';
-      document.getElementById('charOrigin').value = state.origin;
-      document.getElementById('previewOrigin').textContent = originLabels[state.origin];
-      document.getElementById('previewDrive').textContent = driveLabels[state.drive];
-
-      // Look
-      document.getElementById('previewImg').src = lookImages[state.look];
-      document.querySelectorAll('#lookPresets button').forEach((btn, i) => {
-        btn.classList.toggle('active', i === state.look);
-        btn.classList.toggle('border-moth-pink', i === state.look);
-        btn.classList.toggle('border-white/20', i !== state.look);
-      });
-
-      // Skin / Hair / Tattoo labels
-      document.getElementById('skinTone').value = state.skin;
-      document.getElementById('skinLabel').textContent = skinLabels[state.skin];
-      document.getElementById('hairStyle').value = state.hair;
-      document.getElementById('hairLabel').textContent = hairLabels[state.hair];
-      document.getElementById('tattooVis').value = state.tattoo;
-      document.getElementById('tattooLabel').textContent = tattooLabels[state.tattoo];
-
-      // Stats
-      const used = getUsedPoints();
-      document.getElementById('totalPoints').textContent = used;
-      document.getElementById('pointsLeft').textContent = TOTAL_POINTS - used;
-
-      statsMeta.forEach(s => {
-        const val = state.stats[s.key];
-        const el = document.getElementById(`stat-${s.key}`);
-        const fill = document.getElementById(`fill-${s.key}`);
-        if (el) el.textContent = val;
-        if (fill) fill.style.width = `${(val / MAX_STAT) * 100}%`;
-
-        // Mini bars
-        document.getElementById(`bar-${s.key}`).style.width = `${(val / MAX_STAT) * 100}%`;
-        document.getElementById(`val-${s.key}`).textContent = val;
-      });
-
-      // Traits
-      document.querySelectorAll('.trait-btn').forEach(btn => {
-        const t = btn.dataset.trait;
-        const isSelected = state.traits.includes(t);
-        btn.classList.toggle('active', isSelected);
-        btn.classList.toggle('border-moth-pink', isSelected);
-        btn.classList.toggle('border-white/20', !isSelected);
-      });
-      document.getElementById('selectedTraitsCount').textContent = state.traits.length;
-
-      const preview = document.getElementById('activeTraitsPreview');
-      if (state.traits.length === 0) {
-        preview.innerHTML = '<span class="text-xs text-gray-500 italic">Pick 2 traits above...</span>';
-      } else {
-        preview.innerHTML = state.traits.map(t => 
-          `<span class="inline-flex items-center gap-1 px-2.5 py-1 bg-moth-pink/20 border border-moth-pink/50 rounded-full text-xs">
-            ${traitData[t].icon} ${traitData[t].name}
-          </span>`
-        ).join('');
-      }
-
-      // Create button state
-      const canCreate = state.name.trim().length > 0 && 
-                        used === TOTAL_POINTS && 
-                        state.traits.length === 2;
-      document.getElementById('createBtn').disabled = !canCreate;
-    }
-
-    // ========== EVENTS ==========
-    document.getElementById('charName').addEventListener('input', (e) => {
-      state.name = e.target.value.toUpperCase().slice(0, 16);
-      updateUI();
-    });
-
-    document.getElementById('charOrigin').addEventListener('change', (e) => {
-      state.origin = e.target.value;
-      updateUI();
-    });
-
-    document.querySelectorAll('#driveOptions button').forEach(btn => {
-      btn.addEventListener('click', () => {
-        state.drive = btn.dataset.drive;
-        document.querySelectorAll('#driveOptions button').forEach(b => {
-          b.classList.toggle('active', b === btn);
-          b.classList.toggle('border-moth-pink', b === btn);
-          b.classList.toggle('border-white/20', b !== btn);
-        });
-        updateUI();
-      });
-    });
-
-    document.querySelectorAll('#lookPresets button').forEach(btn => {
-      btn.addEventListener('click', () => {
-        state.look = parseInt(btn.dataset.look);
-        updateUI();
-      });
-    });
-
-    document.getElementById('skinTone').addEventListener('input', (e) => {
-      state.skin = parseInt(e.target.value);
-      updateUI();
-    });
-    document.getElementById('hairStyle').addEventListener('input', (e) => {
-      state.hair = parseInt(e.target.value);
-      updateUI();
-    });
-    document.getElementById('tattooVis').addEventListener('input', (e) => {
-      state.tattoo = parseInt(e.target.value);
-      updateUI();
-    });
-
-    document.querySelectorAll('.trait-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const t = btn.dataset.trait;
-        if (state.traits.includes(t)) {
-          state.traits = state.traits.filter(x => x !== t);
-        } else if (state.traits.length < 2) {
-          state.traits.push(t);
-        }
-        updateUI();
-      });
-    });
-
-    document.getElementById('resetBtn').addEventListener('click', () => {
-      state.name = 'ELEVEN';
-      state.origin = 'hood';
-      state.drive = 'money';
-      state.look = 0;
-      state.skin = 2;
-      state.hair = 1;
-      state.tattoo = 2;
-      state.stats = { mind:1, money:1, image:1, network:1, health:1, legacy:1 };
-      state.traits = [];
-      renderStats();
-      updateUI();
-    });
-
-    document.getElementById('createBtn').addEventListener('click', () => {
-      // Save to localStorage for later game integration
-      const character = {
-        ...state,
-        createdAt: new Date().toISOString(),
-        version: '1.0'
-      };
-      localStorage.setItem('moth_character', JSON.stringify(character));
-
-      // Show modal
-      document.getElementById('modalName').textContent = state.name;
-      document.getElementById('modalOrigin').textContent = originLabels[state.origin];
-      document.getElementById('modalDrive').textContent = driveLabels[state.drive];
-      document.getElementById('modalTraits').textContent = state.traits.map(t => traitData[t].name).join(' + ');
-      
-      const modal = document.getElementById('successModal');
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-    });
-
-    document.getElementById('closeModal').addEventListener('click', () => {
-      const modal = document.getElementById('successModal');
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-    });
-
-    // Init
-    renderStats();
-    updateUI();
-
-    // Preload images
-    lookImages.forEach(src => {
-      const img = new Image();
-      img.src = src;
-    });
-  </script>
+  <script src="emails.js"></script>
+  <script src="sim.js"></script>
 </body>
 </html>

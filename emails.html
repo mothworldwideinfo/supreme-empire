@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MOTH EMPIRE — Waitlist</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body class="bg-black text-white font-[Inter,sans-serif]">
+  <main class="mx-auto max-w-4xl px-4 py-10">
+    <div class="flex flex-wrap items-center justify-between gap-3">
+      <div>
+        <p class="font-[Orbitron,sans-serif] text-[11px] uppercase tracking-[0.3em] text-pink-400">Internal</p>
+        <h1 class="font-[Orbitron,sans-serif] text-2xl font-black">Waitlist emails</h1>
+        <p class="mt-1 text-sm text-gray-400">Stored in this browser only until you export or connect Formspree.</p>
+      </div>
+      <div class="flex gap-2">
+        <a href="index.html" class="rounded-full border border-white/20 px-4 py-2 text-xs uppercase tracking-[0.2em]">Back to site</a>
+        <button id="exportBtn" class="rounded-full bg-pink-500 px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-black">Export CSV</button>
+        <button id="clearBtn" class="rounded-full border border-red-400/40 px-4 py-2 text-xs uppercase tracking-[0.2em] text-red-300">Clear</button>
+      </div>
+    </div>
+    <p id="meta" class="mt-6 text-sm text-pink-400">0 emails</p>
+    <div class="mt-4 overflow-x-auto rounded-2xl border border-white/10">
+      <table class="min-w-full text-left text-sm">
+        <thead class="bg-white/5 text-[10px] uppercase tracking-[0.2em] text-gray-500">
+          <tr>
+            <th class="px-4 py-3">Email</th>
+            <th class="px-4 py-3">Name</th>
+            <th class="px-4 py-3">City</th>
+            <th class="px-4 py-3">Size</th>
+            <th class="px-4 py-3">Added</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+  </main>
+  <script src="emails.js"></script>
+  <script>
+    function render() {
+      const list = window.MothEmails.load();
+      document.getElementById('meta').textContent = list.length + ' emails on this device';
+      document.getElementById('rows').innerHTML = list.length
+        ? list.map((r) => `<tr class="border-t border-white/10">
+            <td class="px-4 py-3">${r.email}</td>
+            <td class="px-4 py-3">${r.name || '—'}</td>
+            <td class="px-4 py-3">${r.city || '—'}</td>
+            <td class="px-4 py-3">${r.size || '—'}</td>
+            <td class="px-4 py-3 text-gray-500">${(r.addedAt || '').slice(0, 16).replace('T', ' ')}</td>
+          </tr>`).join('')
+        : '<tr><td class="px-4 py-8 text-gray-500" colspan="5">No emails yet. Capture them on the brand page.</td></tr>';
+    }
+    document.getElementById('exportBtn').onclick = () => window.MothEmails.downloadCsv();
+    document.getElementById('clearBtn').onclick = () => {
+      if (confirm('Delete the local waitlist on this device?')) {
+        window.MothEmails.save([]);
+        render();
+      }
+    };
+    render();
+  </script>
+</body>
+</html>
