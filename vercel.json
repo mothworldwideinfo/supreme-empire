@@ -1,0 +1,22 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.madeoutthehood.org" }],
+      "destination": "https://madeoutthehood.org/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "mothworldwide.com" }],
+      "destination": "https://madeoutthehood.org/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.mothworldwide.com" }],
+      "destination": "https://madeoutthehood.org/:path*",
+      "permanent": true
+    }
+  ]
+}
