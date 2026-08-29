@@ -2,14 +2,108 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MOTH EMPIRE Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MOTH EMPIRE — Free Game</title>
+  <meta name="theme-color" content="#ff2d95" />
   <style>
-    html, body { margin: 0; height: 100%; background: #050505; }
-    iframe { border: 0; width: 100%; height: 100%; }
+    :root { --pink:#ff2d95; --ink:#07060a; --line:rgba(243,238,244,.14); --muted:#9a8f9c; }
+    * { box-sizing: border-box; }
+    body { margin:0; min-height:100vh; background:var(--ink); color:#f3eef4; font-family: Inter, system-ui, sans-serif; }
+    a { color:#f3eef4; }
+    header { display:flex; justify-content:space-between; align-items:center; padding:12px 16px; border-bottom:1px solid var(--line); }
+    header a { font-size:11px; letter-spacing:.22em; text-transform:uppercase; text-decoration:none; color:#7fd4e0; }
+    main { max-width:720px; margin:0 auto; padding:24px 16px 48px; }
+    h1 { margin:8px 0 0; font-size:32px; }
+    .sub { color:var(--muted); font-size:14px; max-width:36rem; }
+    .arena { position:relative; height:360px; margin-top:20px; overflow:hidden; border:1px solid rgba(127,212,224,.4); border-radius:28px; background:#05050a; }
+    .hud { position:absolute; left:16px; top:16px; font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:#7fd4e0; }
+    .moth { position:absolute; width:56px; height:56px; border:0; border-radius:999px; background:var(--pink); color:#14010c; font-size:10px; font-weight:700; letter-spacing:.12em; cursor:pointer; box-shadow:0 0 24px var(--pink); }
+    .stats { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:16px; }
+    .card { border:1px solid var(--line); border-radius:20px; padding:16px; }
+    .card p { margin:0; font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); }
+    .card b { display:block; margin-top:6px; font-size:28px; }
+    input, button.enter { width:100%; height:44px; margin-top:8px; border-radius:12px; border:1px solid var(--line); background:#121018; color:#f3eef4; padding:0 12px; }
+    button.enter { background:var(--pink); color:#14010c; border:0; font-size:11px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; cursor:pointer; }
+    .note { margin-top:12px; color:var(--muted); font-size:14px; }
+    .wait { display:inline-block; margin-top:16px; color:var(--pink); font-size:12px; letter-spacing:.16em; text-transform:uppercase; }
   </style>
 </head>
 <body>
-  <iframe title="MOTH character creator" src="https://cdn.jsdelivr.net/gh/mothworldwideinfo/supreme-empire@dde4e4139c4fec21c4c0f85369436cbf4c676df8/index.html"></iframe>
+  <header>
+    <a href="./index.html">Made Out The Hood</a>
+    <a href="./index.html#waitlist">Waitlist</a>
+  </header>
+  <main>
+    <p class="wait" style="margin:0">Free game · no card · clothing waitlist only</p>
+    <h1>Catch the moth.</h1>
+    <p class="sub">8 free catches a day. Same house as madeoutthehood.org. Drop 01 is not for sale yet.</p>
+    <div id="setup">
+      <label>Street name<input id="name" maxlength="16" value="ELEVEN" /></label>
+      <button class="enter" id="enter">Enter free game</button>
+    </div>
+    <div id="play" hidden>
+      <div class="arena">
+        <p class="hud" id="hud">energy 8/8</p>
+        <button class="moth" id="moth" type="button">MOTH</button>
+      </div>
+      <div class="stats">
+        <div class="card"><p>Score</p><b id="score">0</b></div>
+        <div class="card"><p>Caught</p><b id="caught">0</b></div>
+      </div>
+      <p class="note" id="flash">Tap the moth. Energy resets tomorrow. Still free.</p>
+      <a class="wait" href="./index.html#waitlist">Join Drop 01 waitlist</a>
+    </div>
+  </main>
+  <script>
+    const MAX = 8;
+    const today = () => new Date().toISOString().slice(0,10);
+    function play() {
+      try { return JSON.parse(localStorage.moth_free_play); } catch { return { score:0, caught:0 }; }
+    }
+    function energy() {
+      try {
+        const r = JSON.parse(localStorage.moth_energy || '{}');
+        if (r.day !== today()) return MAX;
+        return Math.max(0, MAX - (r.n || 0));
+      } catch { return MAX; }
+    }
+    function spend() {
+      const left = energy();
+      localStorage.moth_energy = JSON.stringify({ day: today(), n: MAX - (left - 1) });
+    }
+    function move() {
+      const el = document.getElementById('moth');
+      el.style.left = (8 + Math.random()*78) + '%';
+      el.style.top = (8 + Math.random()*70) + '%';
+    }
+    function paint() {
+      const p = play();
+      document.getElementById('score').textContent = p.score;
+      document.getElementById('caught').textContent = p.caught;
+      document.getElementById('hud').textContent = (localStorage.moth_street || 'MOTH') + ' · energy ' + energy() + '/' + MAX;
+    }
+    document.getElementById('enter').onclick = () => {
+      localStorage.moth_street = (document.getElementById('name').value || 'MOTH').toUpperCase();
+      document.getElementById('setup').hidden = true;
+      document.getElementById('play').hidden = false;
+      paint();
+      move();
+      setInterval(move, 1100);
+    };
+    document.getElementById('moth').onclick = () => {
+      if (energy() <= 0) {
+        document.getElementById('flash').textContent = 'Out of free energy. Back tomorrow. Game stays free.';
+        return;
+      }
+      spend();
+      const p = play();
+      p.score += 11; p.caught += 1;
+      localStorage.moth_free_play = JSON.stringify(p);
+      document.getElementById('flash').textContent = 'Caught. +11 moths.';
+      paint();
+      move();
+    };
+    if (localStorage.moth_street) document.getElementById('enter').click();
+  </script>
 </body>
 </html>
