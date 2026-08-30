@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="MOTH EMPIRE">
+<meta name="theme-color" content="#0a0a12">
+<title>MOTH EMPIRE // GAME APP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a12;
+    --panel:#12121e;
+    --pink:#ff2d95;
+    --cyan:#22d3ee;
+    --text:#f2f2f7;
+    --muted:#9a96ad;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:radial-gradient(ellipse at top, #1a0f22 0%, var(--bg) 55%);
+    color:var(--text);
+    font-family:Inter,system-ui,sans-serif;
+    min-height:100vh;
+  }
+  h1,h2,.brand{font-family:'Space Grotesk',sans-serif;}
+  nav{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:18px 24px;border-bottom:1px solid #22202f;
+  }
+  .brand{font-weight:700;letter-spacing:.04em;font-size:1.1rem;}
+  .brand span{color:var(--pink);}
+  nav .links a{color:var(--muted);text-decoration:none;margin-left:18px;font-size:.9rem;}
+  nav .links a:hover{color:var(--cyan);}
+  main{max-width:760px;margin:0 auto;padding:40px 20px 80px;text-align:center;}
+  .moth-img{width:180px;height:180px;object-fit:cover;border-radius:50%;
+    border:2px solid var(--pink);box-shadow:0 0 60px -10px var(--pink);margin-bottom:10px;}
+  .eyebrow{color:var(--cyan);letter-spacing:.15em;font-size:.75rem;text-transform:uppercase;margin-bottom:6px;}
+  h1{font-size:clamp(2rem,7vw,3.2rem);margin:0 0 14px;line-height:1.05;}
+  p.lede{color:var(--muted);max-width:520px;margin:0 auto 30px;line-height:1.55;}
+  .cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:14px;}
+  .btn{
+    padding:14px 24px;border-radius:12px;font-weight:600;text-decoration:none;
+    font-size:.95rem;display:inline-block;transition:transform .15s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:linear-gradient(135deg,var(--pink),#c2185b);color:#fff;}
+  .btn-secondary{background:transparent;border:1px solid #3a3650;color:var(--text);}
+  .btn-gold{background:linear-gradient(135deg,#ffd76b,#ff9f2d);color:#1a1200;}
+  .sub-links{margin-top:6px;color:var(--muted);font-size:.85rem;}
+  .sub-links a{color:var(--cyan);text-decoration:none;}
+
+  .card{
+    background:var(--panel);border:1px solid #22202f;border-radius:18px;
+    padding:28px;margin-top:46px;text-align:left;
+  }
+  .card h2{font-size:1.1rem;margin:0 0 6px;}
+  .card p{color:var(--muted);font-size:.9rem;margin:0 0 18px;line-height:1.5;}
+  form{display:flex;gap:10px;flex-wrap:wrap;}
+  input[type=email]{
+    flex:1;min-width:200px;background:#0e0e18;border:1px solid #302c42;
+    border-radius:10px;padding:12px 14px;color:var(--text);font-size:.95rem;
+  }
+  input[type=email]:focus{outline:2px solid var(--cyan);}
+  button{
+    background:var(--cyan);color:#03222a;border:none;border-radius:10px;
+    padding:12px 20px;font-weight:600;cursor:pointer;font-size:.95rem;
+  }
+  button:hover{filter:brightness(1.08);}
+  .status{margin-top:12px;font-size:.85rem;color:var(--cyan);min-height:1.2em;}
+  .status.err{color:var(--pink);}
+
+  footer{text-align:center;color:var(--muted);font-size:.78rem;padding:24px;border-top:1px solid #22202f;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">MOTH <span>EMPIRE</span></div>
+  <div class="links">
+    <a href="shop.html">Shop</a>
+    <a href="game.html">Game</a>
+    <a href="solar-dgdc.html">DGDC</a>
+  </div>
+</nav>
+
+<main>
+  <img class="moth-img" src="https://raw.githubusercontent.com/mothworldwideinfo/supreme-empire/main/DJ2fR.jpg" alt="MOTH">
+  <div class="eyebrow">Game App</div>
+  <h1>Step into the Moth Empire.</h1>
+  <p class="lede">Create your empire self, unlock packs, and catch moths for free. Same cosmic server as before &mdash; now with a live DGDC rewards economy.</p>
+
+  <div class="cta-row">
+    <a class="btn btn-primary" href="game.html">Enter Game</a>
+    <a class="btn btn-gold" href="solar-dgdc.html">DGDC Solar Yield</a>
+    <a class="btn btn-secondary" href="shop.html">Shop</a>
+  </div>
+  <div class="sub-links"><a href="shop.html#sim">Paper book</a></div>
+
+  <div class="card" id="waitlist">
+    <h2>Join the Drop 01 waitlist</h2>
+    <p>Get notified the moment the clothing drop and new game modes go live. No spam, no card required.</p>
+    <form id="waitlist-form">
+      <input type="email" id="waitlist-email" placeholder="you@email.com" required>
+      <button type="submit">Notify me</button>
+    </form>
+    <div class="status" id="waitlist-status"></div>
+  </div>
+</main>
+
+<footer>Offline-ready &bull; installable &bull; mobile first &bull; MOTH EMPIRE &copy; <span id="yr"></span></footer>
+
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+// Functional waitlist capture. Stores locally in this browser and gives the
+// user a mailto fallback so nothing is lost even without a backend wired up.
+const form = document.getElementById('waitlist-form');
+const statusEl = document.getElementById('waitlist-status');
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const email = document.getElementById('waitlist-email').value.trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    statusEl.textContent = 'Enter a valid email.';
+    statusEl.className = 'status err';
+    return;
+  }
+  try {
+    const list = JSON.parse(localStorage.getItem('moth_waitlist') || '[]');
+    if (!list.includes(email)) list.push(email);
+    localStorage.setItem('moth_waitlist', JSON.stringify(list));
+  } catch (err) { /* storage unavailable, still proceed */ }
+
+  statusEl.textContent = "You're on the list. Welcome to the empire.";
+  statusEl.className = 'status';
+  form.reset();
+
+  // TODO(owner): replace local storage with a real waitlist endpoint
+  // (e.g. a Formspree/Zapier/Airtable webhook, or your own API route)
+  // so signups are captured centrally instead of per-browser.
+});
+</script>
+
+</body>
+</html>

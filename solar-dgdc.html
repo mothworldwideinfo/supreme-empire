@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ff9f2d">
+<title>DGDC Solar Yield — MOTH EMPIRE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#0a0a12; --panel:#12121e; --pink:#ff2d95; --cyan:#22d3ee; --gold:#ffd76b; --text:#f2f2f7; --muted:#9a96ad; }
+  *{box-sizing:border-box;}
+  body{margin:0;background:radial-gradient(ellipse at top,#221a0f 0%,var(--bg) 55%);color:var(--text);
+    font-family:Inter,system-ui,sans-serif;min-height:100vh;}
+  h1,h2,.brand{font-family:'Space Grotesk',sans-serif;}
+  code,.mono{font-family:'JetBrains Mono',monospace;}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:16px 22px;border-bottom:1px solid #22202f;flex-wrap:wrap;gap:8px;}
+  .brand{font-weight:700;font-size:1rem;}
+  nav a{color:var(--muted);text-decoration:none;font-size:.85rem;margin-left:14px;}
+  nav a:hover{color:var(--cyan);}
+
+  main{max-width:640px;margin:0 auto;padding:24px 18px 70px;}
+  .eyebrow{color:var(--gold);letter-spacing:.15em;font-size:.72rem;text-transform:uppercase;margin-bottom:6px;}
+  h1{font-size:clamp(1.6rem,6vw,2.3rem);margin:0 0 10px;}
+  p.lede{color:var(--muted);line-height:1.55;margin:0 0 22px;}
+
+  .card{background:var(--panel);border:1px solid #22202f;border-radius:18px;padding:22px;margin-bottom:18px;}
+  .card h2{font-size:1rem;margin:0 0 12px;display:flex;align-items:center;gap:8px;}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .metric .num{font-size:1.4rem;font-weight:700;color:var(--cyan);}
+  .metric .num.gold{color:var(--gold);}
+  .metric .label{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;}
+
+  .eq-box{background:#0e0e18;border:1px solid #302c42;border-radius:12px;padding:16px;font-size:.92rem;
+    line-height:1.7;overflow-x:auto;}
+  .eq-box .k{color:var(--gold);}
+  .eq-box .v{color:var(--cyan);}
+
+  .supply-bar{height:10px;border-radius:6px;background:#0e0e18;overflow:hidden;margin-top:10px;border:1px solid #302c42;}
+  .supply-fill{height:100%;background:linear-gradient(90deg,var(--pink),var(--gold));width:0%;}
+
+  form{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;}
+  input[type=number]{flex:1;min-width:140px;background:#0e0e18;border:1px solid #302c42;border-radius:10px;
+    padding:12px 14px;color:var(--text);font-size:.95rem;}
+  input:focus{outline:2px solid var(--cyan);}
+  button{background:var(--gold);color:#1a1200;border:none;border-radius:10px;padding:12px 20px;
+    font-weight:700;cursor:pointer;font-size:.95rem;}
+  button:hover{filter:brightness(1.06);}
+  .result{margin-top:14px;font-size:.9rem;color:var(--cyan);min-height:1.2em;}
+
+  .disclaimer{font-size:.78rem;color:var(--muted);border-top:1px solid #22202f;padding-top:16px;line-height:1.6;}
+  .disclaimer b{color:var(--text);}
+  footer{text-align:center;color:var(--muted);font-size:.78rem;padding:24px;border-top:1px solid #22202f;}
+  a.link{color:var(--cyan);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">MOTH <span style="color:var(--pink)">EMPIRE</span></div>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="game.html">Catch the Moth</a>
+  </div>
+</nav>
+
+<main>
+  <div class="eyebrow">Separate Game &middot; DGDC Rewards</div>
+  <h1>Solar Yield: turn a donation into DGDC.</h1>
+  <p class="lede">DGDC (Dior Going Digital Coins) is MOTH EMPIRE's fictional thank-you currency. It has a fixed pool of
+    <b>1,000,000,000,000</b> coins, has no cash value, isn't a security, and can't be redeemed, sold, or cashed out
+    &mdash; it's a badge of support that unlocks in-game perks only.</p>
+
+  <div class="card">
+    <h2>&#9728;&#65039; Live solar reading</h2>
+    <div class="grid">
+      <div class="metric"><div class="num" id="irradiance">&mdash;</div><div class="label">Irradiance (W/m&sup2;)</div></div>
+      <div class="metric"><div class="num gold" id="rate">&mdash;</div><div class="label">DGDC per $1 right now</div></div>
+    </div>
+    <p class="lede" style="font-size:.8rem;margin:10px 0 0;">Sourced live from Open-Meteo's solar radiation feed for your location (or a reference location if you don't share it). This is what makes the rate move throughout the day &mdash; it's a game mechanic, not a financial instrument.</p>
+  </div>
+
+  <div class="card">
+    <h2>&#128300; The equation</h2>
+    <div class="eq-box mono">
+      DGDC = donation_usd &times; <span class="k">R</span> &times; <span class="k">&eta;</span> &times; (<span class="v">G</span> / <span class="k">G&#8320;</span>)<br><br>
+      <span class="k">R</span> = 1,000 <span style="color:var(--muted)">// base DGDC awarded per $1</span><br>
+      <span class="k">&eta;</span> = 0.22 <span style="color:var(--muted)">// reference panel efficiency</span><br>
+      <span class="v">G</span> = live irradiance reading (W/m&sup2;)<br>
+      <span class="k">G&#8320;</span> = 1,000 <span style="color:var(--muted)">// standard test irradiance (W/m&sup2;)</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>&#127942; Your DGDC wallet</h2>
+    <div class="grid">
+      <div class="metric"><div class="num gold" id="wallet">0</div><div class="label">DGDC balance</div></div>
+      <div class="metric"><div class="num" id="remaining">1,000,000,000,000</div><div class="label">DGDC remaining in supply</div></div>
+    </div>
+    <div class="supply-bar"><div class="supply-fill" id="supply-fill"></div></div>
+
+    <form id="donate-form">
+      <input type="number" id="donation" min="1" step="1" placeholder="Donation amount ($)">
+      <button type="submit">Convert to DGDC</button>
+    </form>
+    <div class="result" id="result"></div>
+    <p class="lede" style="font-size:.78rem;margin:10px 0 0;">
+      Demo mode: this simulates the conversion so you can see the mechanic. To accept real donations,
+      wire this form to your Stripe Payment Link or Checkout session, then call the conversion formula
+      in your webhook once the charge succeeds.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>&#128200; Global market pulse <span style="font-weight:400;color:var(--muted);font-size:.75rem;">(reference only)</span></h2>
+    <div id="ticker-wrap" style="min-height:60px;"></div>
+    <p class="lede" style="font-size:.78rem;margin:10px 0 0;">Live prices shown for atmosphere only. DGDC is not listed on any exchange and is not backed by, pegged to, or tradable for any of the assets above.</p>
+  </div>
+
+  <div class="disclaimer">
+    <b>What DGDC is:</b> an in-game thank-you currency for supporters of MOTH EMPIRE.<br>
+    <b>What DGDC is not:</b> money, a cryptocurrency, a security, an investment, or redeemable for cash. Balances shown here are stored only in this browser as a demo &mdash; a production version would need a real backend/ledger and clear terms of service before accepting real donations.
+  </div>
+</main>
+
+<footer>MOTH EMPIRE &bull; DGDC is a fictional reward currency &bull; &copy; <span id="yr"></span></footer>
+
+<script src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async></script>
+
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+// ---- TradingView ticker (real widget, official embed, no key required) ----
+const tvScript = document.createElement('script');
+tvScript.type = 'application/json';
+tvScript.text = JSON.stringify({
+  symbols: [
+    { proName: "BITSTAMP:BTCUSD", title: "BTC/USD" },
+    { proName: "BITSTAMP:ETHUSD", title: "ETH/USD" },
+    { proName: "FOREXCOM:SPXUSD", title: "S&P 500" },
+    { proName: "FX:EURUSD", title: "EUR/USD" }
+  ],
+  showSymbolLogo: true,
+  colorTheme: "dark",
+  isTransparent: true,
+  displayMode: "adaptive",
+  locale: "en"
+});
+const tvContainer = document.createElement('div');
+tvContainer.className = 'tradingview-widget-container';
+tvContainer.appendChild(tvScript);
+document.getElementById('ticker-wrap').appendChild(tvContainer);
+
+// ---- Live solar irradiance via Open-Meteo (free, no API key) ----
+const RATE_PER_DOLLAR = 1000;   // R
+const EFFICIENCY = 0.22;        // eta
+const G0 = 1000;                // standard test irradiance, W/m^2
+const TOTAL_SUPPLY = 1_000_000_000_000; // 1 trillion DGDC
+
+let currentG = 500; // sensible fallback until live data loads (mid-day reference)
+
+function updateRateDisplay(){
+  const rate = RATE_PER_DOLLAR * EFFICIENCY * (currentG / G0);
+  document.getElementById('irradiance').textContent = Math.round(currentG).toLocaleString();
+  document.getElementById('rate').textContent = rate.toFixed(1);
+}
+updateRateDisplay();
+
+async function fetchIrradiance(lat, lon){
+  try {
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=shortwave_radiation`;
+    const res = await fetch(url);
+    const data = await res.json();
+    const g = data?.current?.shortwave_radiation;
+    if (typeof g === 'number' && g >= 0) {
+      currentG = g;
+      updateRateDisplay();
+    }
+  } catch (err) {
+    // network unavailable — keep fallback value
+    console.warn('Solar feed unavailable, using reference irradiance.', err);
+  }
+}
+
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(
+    (pos) => fetchIrradiance(pos.coords.latitude, pos.coords.longitude),
+    () => fetchIrradiance(35.2271, -80.8431) // fallback: Charlotte, NC reference reading
+  );
+} else {
+  fetchIrradiance(35.2271, -80.8431);
+}
+setInterval(() => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (pos) => fetchIrradiance(pos.coords.latitude, pos.coords.longitude),
+      () => fetchIrradiance(35.2271, -80.8431)
+    );
+  }
+}, 5 * 60 * 1000); // refresh every 5 minutes
+
+// ---- Wallet + supply (shared with game.html via localStorage) ----
+const KEY_DGDC = 'dgdc_balance';
+const KEY_MINTED = 'dgdc_minted_total';
+
+function loadWallet(){
+  return {
+    balance: parseFloat(localStorage.getItem(KEY_DGDC) || '0'),
+    minted: parseFloat(localStorage.getItem(KEY_MINTED) || '0')
+  };
+}
+let wallet = loadWallet();
+
+function renderWallet(){
+  const remaining = Math.max(TOTAL_SUPPLY - wallet.minted, 0);
+  document.getElementById('wallet').textContent = Math.round(wallet.balance).toLocaleString();
+  document.getElementById('remaining').textContent = Math.round(remaining).toLocaleString();
+  document.getElementById('supply-fill').style.width = ((wallet.minted / TOTAL_SUPPLY) * 100).toFixed(4) + '%';
+}
+renderWallet();
+
+document.getElementById('donate-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const input = document.getElementById('donation');
+  const amount = parseFloat(input.value);
+  const resultEl = document.getElementById('result');
+
+  if (!amount || amount <= 0) {
+    resultEl.textContent = 'Enter a donation amount greater than $0.';
+    resultEl.style.color = 'var(--pink)';
+    return;
+  }
+
+  const rate = RATE_PER_DOLLAR * EFFICIENCY * (currentG / G0);
+  const awarded = amount * rate;
+  const remainingBefore = TOTAL_SUPPLY - wallet.minted;
+
+  if (awarded > remainingBefore) {
+    resultEl.textContent = 'The DGDC supply is fully minted — thank you for supporting MOTH EMPIRE anyway!';
+    resultEl.style.color = 'var(--gold)';
+    return;
+  }
+
+  wallet.balance += awarded;
+  wallet.minted += awarded;
+  localStorage.setItem(KEY_DGDC, String(wallet.balance));
+  localStorage.setItem(KEY_MINTED, String(wallet.minted));
+  renderWallet();
+
+  resultEl.style.color = 'var(--cyan)';
+  resultEl.textContent = `$${amount.toFixed(2)} converted at today's solar rate → +${awarded.toFixed(1)} DGDC.`;
+  input.value = '';
+});
+</script>
+
+</body>
+</html>

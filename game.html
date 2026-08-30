@@ -1,148 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MOTH EMPIRE — Free Game</title>
-  <meta name="theme-color" content="#ff2d95" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    :root { --pink:#ff2d95; --ink:#07060a; --line:rgba(243,238,244,.14); --muted:#9a8f9c; }
-    * { box-sizing: border-box; }
-    body { margin:0; min-height:100vh; background:var(--ink); color:#f3eef4; font-family: Inter, system-ui, sans-serif; }
-    a { color:#f3eef4; }
-    header { display:flex; justify-content:space-between; align-items:center; padding:12px 16px; border-bottom:1px solid var(--line); }
-    header a { font-size:11px; letter-spacing:.22em; text-transform:uppercase; text-decoration:none; color:#7fd4e0; }
-    main { max-width:720px; margin:0 auto; padding:24px 16px 48px; }
-    h1 { margin:8px 0 0; font-size:32px; }
-    .sub { color:var(--muted); font-size:14px; max-width:36rem; }
-    .arena { position:relative; height:360px; margin-top:20px; overflow:hidden; border:1px solid rgba(127,212,224,.4); border-radius:28px; background:#05050a; }
-    .hud { position:absolute; left:16px; top:16px; font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:#7fd4e0; }
-    .moth { position:absolute; width:56px; height:56px; border:0; border-radius:999px; background:var(--pink); color:#14010c; font-size:10px; font-weight:700; letter-spacing:.12em; cursor:pointer; box-shadow:0 0 24px var(--pink); }
-    .stats { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:16px; }
-    .card { border:1px solid var(--line); border-radius:20px; padding:16px; }
-    .card p { margin:0; font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); }
-    .card b { display:block; margin-top:6px; font-size:28px; }
-    input, button.enter { width:100%; height:44px; margin-top:8px; border-radius:12px; border:1px solid var(--line); background:#121018; color:#f3eef4; padding:0 12px; }
-    button.enter { background:var(--pink); color:#14010c; border:0; font-size:11px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; cursor:pointer; }
-    .note { margin-top:12px; color:var(--muted); font-size:14px; }
-    .wait { display:inline-block; margin-top:16px; color:var(--pink); font-size:12px; letter-spacing:.16em; text-transform:uppercase; }
-    label { display:block; font-size:12px; margin-top:8px; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ff2d95">
+<title>MOTH EMPIRE — Free Game</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#0a0a12; --panel:#12121e; --pink:#ff2d95; --cyan:#22d3ee; --text:#f2f2f7; --muted:#9a96ad; }
+  *{box-sizing:border-box;}
+  body{margin:0;background:radial-gradient(ellipse at top,#1a0f22 0%,var(--bg) 55%);color:var(--text);
+    font-family:Inter,system-ui,sans-serif;min-height:100vh;}
+  h1,.brand{font-family:'Space Grotesk',sans-serif;}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:16px 22px;border-bottom:1px solid #22202f;flex-wrap:wrap;gap:8px;}
+  .brand{font-weight:700;font-size:1rem;}
+  nav a{color:var(--muted);text-decoration:none;font-size:.85rem;margin-left:14px;}
+  nav a:hover{color:var(--cyan);}
+  .tag{color:var(--muted);font-size:.8rem;text-align:center;padding:8px;}
+
+  main{max-width:520px;margin:0 auto;padding:20px 18px 60px;text-align:center;}
+  h1{font-size:1.8rem;margin:10px 0 4px;}
+  .street-row{display:flex;gap:10px;margin:14px 0;}
+  input{flex:1;background:#0e0e18;border:1px solid #302c42;border-radius:10px;padding:10px 12px;color:var(--text);font-size:.9rem;}
+
+  .stats{display:flex;justify-content:center;gap:28px;margin:18px 0;}
+  .stat{}
+  .stat .num{font-size:1.6rem;font-weight:700;color:var(--cyan);}
+  .stat .num.gold{color:#ffd76b;}
+  .stat .label{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;}
+
+  .field{
+    position:relative;height:320px;border-radius:18px;margin:20px 0;
+    background:var(--panel);border:1px solid #22202f;overflow:hidden;
+  }
+  .moth-btn{
+    position:absolute;width:64px;height:64px;border-radius:50%;border:2px solid var(--pink);
+    background:#1a0f22 url('https://raw.githubusercontent.com/mothworldwideinfo/supreme-empire/main/DJ2fR.jpg') center/cover;
+    box-shadow:0 0 30px -6px var(--pink);cursor:pointer;transition:transform .12s ease;
+  }
+  .moth-btn:active{transform:scale(.85);}
+  .field-msg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    color:var(--muted);font-size:.9rem;padding:20px;text-align:center;}
+
+  .btn{padding:14px 22px;border-radius:12px;font-weight:600;text-decoration:none;font-size:.95rem;
+    border:none;cursor:pointer;display:inline-block;}
+  .btn-primary{background:linear-gradient(135deg,var(--pink),#c2185b);color:#fff;}
+  .btn-gold{background:linear-gradient(135deg,#ffd76b,#ff9f2d);color:#1a1200;}
+  .hint{color:var(--muted);font-size:.8rem;margin-top:14px;line-height:1.5;}
+  .pop{position:absolute;font-weight:700;color:var(--cyan);pointer-events:none;font-size:.85rem;animation:rise .7s ease forwards;}
+  @keyframes rise{ to { transform:translateY(-40px); opacity:0; } }
+</style>
 </head>
 <body>
-  <header>
-    <a href="./index.html">Made Out The Hood</a>
-    <a href="./index.html#waitlist">Waitlist</a>
-  </header>
-  <main>
-    <p class="wait" style="margin:0">Free game · no card · clothing waitlist only</p>
-    <h1>Catch the moth.</h1>
-    <p class="sub">8 free catches a day. Same house as madeoutthehood.org. Drop 01 is not for sale yet.</p>
-    <div id="setup">
-      <label>Street name<input id="name" maxlength="16" value="ELEVEN" /></label>
-      <button class="enter" id="enter">Enter free game</button>
-    </div>
-    <div id="play" hidden>
-      <div class="arena">
-        <p class="hud" id="hud">energy 8/8</p>
-        <button class="moth" id="moth" type="button">MOTH</button>
-      </div>
-      <div class="stats">
-        <div class="card"><p>Score</p><b id="score">0</b></div>
-        <div class="card"><p>Caught</p><b id="caught">0</b></div>
-      </div>
-      <p class="note" id="flash">Tap the moth. Energy resets tomorrow. Still free.</p>
-      <a class="wait" href="./index.html#waitlist">Join Drop 01 waitlist</a>
-    </div>
 
-    <section id="sim" class="mt-12 border-t border-white/10 pt-10">
-      <p class="wait" style="margin:0">Paper toy · not a broker</p>
-      <h2 class="mt-2 text-2xl font-black">Fake $10k book</h2>
-      <p id="simStatus" class="sub mt-2">Loading live prices…</p>
-      <button id="resetSim" class="mt-3 text-[11px] uppercase tracking-[0.2em] text-pink-400">Reset to $10,000</button>
-      <div class="mt-4 grid gap-3 md:grid-cols-3">
-        <div class="card"><p>Cash</p><b id="cashBal">$10,000.00</b></div>
-        <div class="card"><p>Holdings</p><b id="holdBal">$0.00</b></div>
-        <div class="card"><p>Total</p><b id="totBal">$10,000.00</b></div>
-      </div>
-      <div class="mt-4 overflow-x-auto rounded-2xl border border-white/10">
-        <table class="min-w-full text-left text-sm">
-          <thead class="bg-white/5 text-[10px] uppercase tracking-[0.2em] text-gray-500">
-            <tr><th class="px-4 py-3">Asset</th><th class="px-4 py-3">Price</th><th class="px-4 py-3">24h</th><th class="px-4 py-3"></th></tr>
-          </thead>
-          <tbody id="watchBody">
-            <tr><td class="px-4 py-6 text-gray-500" colspan="4">Loading live prices…</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-  </main>
+<nav>
+  <div class="brand">MOTH <span style="color:var(--pink)">EMPIRE</span></div>
+  <div>
+    <a href="index.html">Made Out The Hood</a>
+    <a href="index.html#waitlist">Waitlist</a>
+  </div>
+</nav>
+<div class="tag">Free game &middot; no card &middot; clothing waitlist only</div>
 
-  <div id="tradeModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 p-4">
-    <div class="w-full max-w-sm rounded-2xl border border-pink-400/40 bg-[#121018] p-5">
-      <h3 id="tradeTitle" class="text-lg font-bold">Trade</h3>
-      <p id="tradePrice" class="mt-1 text-sm text-gray-400"></p>
-      <input id="tradeAmt" type="number" min="0" step="0.0001" class="mt-4 w-full rounded-xl border border-white/15 bg-black px-4 py-3 text-sm" placeholder="Amount" />
-      <div class="mt-4 flex gap-2">
-        <button id="buyBtn" class="flex-1 rounded-full bg-pink-500 py-2 text-xs font-black uppercase tracking-[0.2em] text-black">Buy</button>
-        <button id="sellBtn" class="flex-1 rounded-full border border-white/20 py-2 text-xs font-black uppercase tracking-[0.2em]">Sell</button>
-      </div>
-      <button id="closeTrade" class="mt-3 w-full text-[11px] uppercase tracking-[0.2em] text-gray-500">Cancel</button>
-    </div>
+<main>
+  <h1>Catch the moth.</h1>
+  <p class="hint">8 free catches a day. Same house as madeoutthehood.org. Drop 01 is not for sale yet.</p>
+
+  <div class="street-row">
+    <input id="street-name" placeholder="Street name" maxlength="24">
   </div>
 
-  <script>
-    const MAX = 8;
-    const today = () => new Date().toISOString().slice(0,10);
-    function play() {
-      try { return JSON.parse(localStorage.moth_free_play); } catch { return { score:0, caught:0 }; }
-    }
-    function energy() {
-      try {
-        const r = JSON.parse(localStorage.moth_energy || '{}');
-        if (r.day !== today()) return MAX;
-        return Math.max(0, MAX - (r.n || 0));
-      } catch { return MAX; }
-    }
-    function spend() {
-      const left = energy();
-      localStorage.moth_energy = JSON.stringify({ day: today(), n: MAX - (left - 1) });
-    }
-    function move() {
-      const el = document.getElementById('moth');
-      el.style.left = (8 + Math.random()*72) + '%';
-      el.style.top = (16 + Math.random()*62) + '%';
-    }
-    function paint() {
-      const p = play();
-      document.getElementById('score').textContent = p.score;
-      document.getElementById('caught').textContent = p.caught;
-      document.getElementById('hud').textContent = (localStorage.moth_street || 'MOTH') + ' · energy ' + energy() + '/' + MAX;
-    }
-    document.getElementById('enter').onclick = () => {
-      localStorage.moth_street = (document.getElementById('name').value || 'MOTH').toUpperCase();
-      document.getElementById('setup').hidden = true;
-      document.getElementById('play').hidden = false;
-      paint();
-      move();
-      setInterval(move, 1100);
-    };
-    document.getElementById('moth').onclick = () => {
-      if (energy() <= 0) {
-        document.getElementById('flash').textContent = 'Out of free energy. Back tomorrow. Game stays free.';
-        return;
-      }
-      spend();
-      const p = play();
-      p.score += 11; p.caught += 1;
-      localStorage.moth_free_play = JSON.stringify(p);
-      document.getElementById('flash').textContent = 'Caught. +11 moths.';
-      paint();
-      move();
-    };
-    if (localStorage.moth_street) document.getElementById('enter').click();
-  </script>
-  <script src="./sim.js"></script>
+  <div class="stats">
+    <div class="stat"><div class="num" id="score">0</div><div class="label">Score</div></div>
+    <div class="stat"><div class="num" id="caught">0</div><div class="label">Caught</div></div>
+    <div class="stat"><div class="num" id="energy">8</div><div class="label">Energy</div></div>
+    <div class="stat"><div class="num gold" id="dgdc">0</div><div class="label">DGDC</div></div>
+  </div>
+
+  <div class="field" id="field">
+    <div class="field-msg" id="field-msg">Tap "Enter free game" to release the moth.</div>
+  </div>
+
+  <button class="btn btn-primary" id="enter-btn">Enter free game</button>
+  <p class="hint">Tap the moth. Energy resets tomorrow. Still free.<br>Each catch also earns you 5 DGDC toward the empire wallet.</p>
+  <a class="btn btn-gold" href="solar-dgdc.html" style="margin-top:10px;">Boost DGDC via Solar Yield &rarr;</a>
+</main>
+
+<script>
+const KEY_DATE = 'moth_energy_date';
+const KEY_ENERGY = 'moth_energy_left';
+const KEY_SCORE = 'moth_score_total';   // cumulative, all-time
+const KEY_CAUGHT = 'moth_caught_total'; // cumulative, all-time
+const KEY_DGDC = 'dgdc_balance';        // shared wallet with solar-dgdc.html
+const DAILY_ENERGY = 8;
+const DGDC_PER_CATCH = 5;
+
+function todayStr(){ return new Date().toISOString().slice(0,10); }
+
+function loadState(){
+  let date = localStorage.getItem(KEY_DATE);
+  let energy = parseInt(localStorage.getItem(KEY_ENERGY), 10);
+  if (date !== todayStr() || isNaN(energy)) {
+    date = todayStr();
+    energy = DAILY_ENERGY;
+    localStorage.setItem(KEY_DATE, date);
+    localStorage.setItem(KEY_ENERGY, String(energy));
+  }
+  return {
+    energy,
+    score: parseInt(localStorage.getItem(KEY_SCORE) || '0', 10),
+    caught: parseInt(localStorage.getItem(KEY_CAUGHT) || '0', 10),
+    dgdc: parseFloat(localStorage.getItem(KEY_DGDC) || '0')
+  };
+}
+
+let state = loadState();
+const els = {
+  score: document.getElementById('score'),
+  caught: document.getElementById('caught'),
+  energy: document.getElementById('energy'),
+  dgdc: document.getElementById('dgdc'),
+  field: document.getElementById('field'),
+  fieldMsg: document.getElementById('field-msg'),
+  enterBtn: document.getElementById('enter-btn'),
+  street: document.getElementById('street-name'),
+};
+
+els.street.value = localStorage.getItem('moth_street_name') || '';
+els.street.addEventListener('input', () => {
+  localStorage.setItem('moth_street_name', els.street.value);
+});
+
+function render(){
+  els.score.textContent = state.score;
+  els.caught.textContent = state.caught;
+  els.energy.textContent = state.energy;
+  els.dgdc.textContent = state.dgdc.toLocaleString();
+}
+render();
+
+function persist(){
+  localStorage.setItem(KEY_ENERGY, String(state.energy));
+  localStorage.setItem(KEY_SCORE, String(state.score));
+  localStorage.setItem(KEY_CAUGHT, String(state.caught));
+  localStorage.setItem(KEY_DGDC, String(state.dgdc));
+}
+
+let mothTimer = null;
+
+function spawnMoth(){
+  els.field.querySelectorAll('.moth-btn').forEach(m => m.remove());
+  els.fieldMsg.style.display = 'none';
+
+  if (state.energy <= 0) {
+    els.fieldMsg.style.display = 'flex';
+    els.fieldMsg.textContent = 'Out of energy. Come back tomorrow — or boost DGDC via Solar Yield.';
+    return;
+  }
+
+  const rect = els.field.getBoundingClientRect();
+  const size = 64;
+  const x = Math.random() * (rect.width - size);
+  const y = Math.random() * (rect.height - size);
+
+  const moth = document.createElement('button');
+  moth.className = 'moth-btn';
+  moth.style.left = x + 'px';
+  moth.style.top = y + 'px';
+  moth.setAttribute('aria-label', 'Catch the moth');
+  moth.addEventListener('click', onCatch);
+  els.field.appendChild(moth);
+
+  clearTimeout(mothTimer);
+  mothTimer = setTimeout(spawnMoth, 1800); // moth flits away if not caught
+}
+
+function onCatch(e){
+  e.currentTarget.remove();
+  state.score += 1;
+  state.caught += 1;
+  state.energy -= 1;
+  state.dgdc += DGDC_PER_CATCH;
+  persist();
+  render();
+
+  const pop = document.createElement('div');
+  pop.className = 'pop';
+  pop.textContent = '+5 DGDC';
+  pop.style.left = e.clientX ? (e.clientX - els.field.getBoundingClientRect().left) + 'px' : '50%';
+  pop.style.top = e.clientY ? (e.clientY - els.field.getBoundingClientRect().top) + 'px' : '50%';
+  els.field.appendChild(pop);
+  setTimeout(() => pop.remove(), 700);
+
+  spawnMoth();
+}
+
+els.enterBtn.addEventListener('click', () => {
+  state = loadState(); // pick up a fresh daily reset if the date rolled over
+  render();
+  spawnMoth();
+});
+</script>
+
 </body>
 </html>
