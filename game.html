@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MOTH EMPIRE — Free Game</title>
   <meta name="theme-color" content="#ff2d95" />
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :root { --pink:#ff2d95; --ink:#07060a; --line:rgba(243,238,244,.14); --muted:#9a8f9c; }
     * { box-sizing: border-box; }
@@ -26,6 +27,7 @@
     button.enter { background:var(--pink); color:#14010c; border:0; font-size:11px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; cursor:pointer; }
     .note { margin-top:12px; color:var(--muted); font-size:14px; }
     .wait { display:inline-block; margin-top:16px; color:var(--pink); font-size:12px; letter-spacing:.16em; text-transform:uppercase; }
+    label { display:block; font-size:12px; margin-top:8px; }
   </style>
 </head>
 <body>
@@ -53,7 +55,43 @@
       <p class="note" id="flash">Tap the moth. Energy resets tomorrow. Still free.</p>
       <a class="wait" href="./index.html#waitlist">Join Drop 01 waitlist</a>
     </div>
+
+    <section id="sim" class="mt-12 border-t border-white/10 pt-10">
+      <p class="wait" style="margin:0">Paper toy · not a broker</p>
+      <h2 class="mt-2 text-2xl font-black">Fake $10k book</h2>
+      <p id="simStatus" class="sub mt-2">Loading live prices…</p>
+      <button id="resetSim" class="mt-3 text-[11px] uppercase tracking-[0.2em] text-pink-400">Reset to $10,000</button>
+      <div class="mt-4 grid gap-3 md:grid-cols-3">
+        <div class="card"><p>Cash</p><b id="cashBal">$10,000.00</b></div>
+        <div class="card"><p>Holdings</p><b id="holdBal">$0.00</b></div>
+        <div class="card"><p>Total</p><b id="totBal">$10,000.00</b></div>
+      </div>
+      <div class="mt-4 overflow-x-auto rounded-2xl border border-white/10">
+        <table class="min-w-full text-left text-sm">
+          <thead class="bg-white/5 text-[10px] uppercase tracking-[0.2em] text-gray-500">
+            <tr><th class="px-4 py-3">Asset</th><th class="px-4 py-3">Price</th><th class="px-4 py-3">24h</th><th class="px-4 py-3"></th></tr>
+          </thead>
+          <tbody id="watchBody">
+            <tr><td class="px-4 py-6 text-gray-500" colspan="4">Loading live prices…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
   </main>
+
+  <div id="tradeModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 p-4">
+    <div class="w-full max-w-sm rounded-2xl border border-pink-400/40 bg-[#121018] p-5">
+      <h3 id="tradeTitle" class="text-lg font-bold">Trade</h3>
+      <p id="tradePrice" class="mt-1 text-sm text-gray-400"></p>
+      <input id="tradeAmt" type="number" min="0" step="0.0001" class="mt-4 w-full rounded-xl border border-white/15 bg-black px-4 py-3 text-sm" placeholder="Amount" />
+      <div class="mt-4 flex gap-2">
+        <button id="buyBtn" class="flex-1 rounded-full bg-pink-500 py-2 text-xs font-black uppercase tracking-[0.2em] text-black">Buy</button>
+        <button id="sellBtn" class="flex-1 rounded-full border border-white/20 py-2 text-xs font-black uppercase tracking-[0.2em]">Sell</button>
+      </div>
+      <button id="closeTrade" class="mt-3 w-full text-[11px] uppercase tracking-[0.2em] text-gray-500">Cancel</button>
+    </div>
+  </div>
+
   <script>
     const MAX = 8;
     const today = () => new Date().toISOString().slice(0,10);
@@ -73,8 +111,8 @@
     }
     function move() {
       const el = document.getElementById('moth');
-      el.style.left = (8 + Math.random()*78) + '%';
-      el.style.top = (8 + Math.random()*70) + '%';
+      el.style.left = (8 + Math.random()*72) + '%';
+      el.style.top = (16 + Math.random()*62) + '%';
     }
     function paint() {
       const p = play();
@@ -105,5 +143,6 @@
     };
     if (localStorage.moth_street) document.getElementById('enter').click();
   </script>
+  <script src="./sim.js"></script>
 </body>
 </html>
